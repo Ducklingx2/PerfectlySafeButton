@@ -60,8 +60,10 @@ const events = [
             "🍑"
         ];
 
-        emoji.textContent =
+        const chosenEmoji =
         emojis[Math.floor(Math.random()*emojis.length)];
+
+        emoji.textContent = chosenEmoji;
 
         emoji.style.fontSize = "4rem";
 
@@ -72,6 +74,13 @@ const events = [
         Math.random()*window.innerHeight + "px";
 
         document.body.appendChild(emoji);
+
+        if (chosenEmoji === "👁️") {
+
+    message.textContent =
+    "The button is watching you.";
+
+}
 
     },
 
@@ -128,24 +137,29 @@ const events = [
 
     // BEEEEEG JELLYFISH
 
-  if (Math.random() < 0.01) {
+  // BEEEEEG JELLYFISH
 
-    const giantJelly = document.createElement("div");
+function () {
 
-    giantJelly.textContent = "🪼";
+    if (Math.random() < 0.01) {
 
-    giantJelly.style.position = "absolute";
-    giantJelly.style.fontSize = "25rem";
+        const giantJelly = document.createElement("div");
 
-    giantJelly.style.left =
-    Math.random() * (window.innerWidth - 400) + "px";
+        giantJelly.textContent = "🪼";
 
-    giantJelly.style.top =
-    Math.random() * (window.innerHeight - 400) + "px";
+        giantJelly.style.position = "absolute";
+        giantJelly.style.fontSize = "25rem";
 
-    giantJelly.style.zIndex = "999";
+        giantJelly.style.left =
+        Math.random() * (window.innerWidth - 400) + "px";
 
-    document.body.appendChild(giantJelly);
+        giantJelly.style.top =
+        Math.random() * (window.innerHeight - 400) + "px";
+
+        giantJelly.style.zIndex = "999";
+
+        document.body.appendChild(giantJelly);
+    }
 
 },
 
@@ -207,7 +221,7 @@ button.addEventListener("click", () => {
         Math.random()*window.innerHeight + "px";
 
         document.body.appendChild(clone);
-    },
+    }
 
     // Rare event
     if (Math.random() < 0.05) {
