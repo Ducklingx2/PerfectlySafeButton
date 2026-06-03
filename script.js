@@ -16,6 +16,17 @@ const randomMessages = [ "Everything remains under control.",
 
 const events = [
 
+    // Messages
+
+  function () {
+
+    message.textContent =
+    randomMessages[
+        Math.floor(Math.random() * randomMessages.length)
+    ];
+
+},
+  
     // Background color change
     function () {
 
@@ -115,6 +126,29 @@ const events = [
 
 },
 
+    // BEEEEEG JELLYFISH
+
+  if (Math.random() < 0.01) {
+
+    const giantJelly = document.createElement("div");
+
+    giantJelly.textContent = "🪼";
+
+    giantJelly.style.position = "absolute";
+    giantJelly.style.fontSize = "25rem";
+
+    giantJelly.style.left =
+    Math.random() * (window.innerWidth - 400) + "px";
+
+    giantJelly.style.top =
+    Math.random() * (window.innerHeight - 400) + "px";
+
+    giantJelly.style.zIndex = "999";
+
+    document.body.appendChild(giantJelly);
+
+},
+
     //Shakey Shakey
 
     function () {
@@ -157,43 +191,6 @@ button.addEventListener("click", () => {
     events[Math.floor(Math.random() * events.length)];
 
     randomEvent();
-
-    // Messages
-    if (!narratorGone) {
-
-        if (clicks < 20) {
-            message.textContent =
-            "Everything is normal.";
-        }
-
-        else if (clicks < 50) {
-            message.textContent =
-            "The button has noticed you.";
-        }
-
-        else if (clicks < 100) {
-            message.textContent =
-            "Something feels slightly wrong.";
-        }
-
-        else if (clicks < 150) {
-            message.textContent =
-            "...";
-        }
-
-        else if (clicks === 200) {
-
-            message.textContent =
-            "You understand the system now.";
-
-            setTimeout(() => {
-
-                message.remove();
-                narratorGone = true;
-
-            }, 2000);
-        }
-    }
 
     // Extra chaos after 250 clicks
     if (clicks > 250 && Math.random() < 0.15) {
