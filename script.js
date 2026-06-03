@@ -52,12 +52,15 @@ const events = [
 
         const emojis = [
             "🗿",
-            "🍄",
             "👁️",
-            "⭐",
+            "🫠",
+            "🕳️",
+            "🪼",
+            "🧍",
             "⚠️",
-            "❓",
-            "🍑"
+            "🍄",
+            "🧪",
+            "🫥"
         ];
 
         const chosenEmoji =
@@ -77,8 +80,25 @@ const events = [
 
         if (chosenEmoji === "👁️") {
 
-    message.textContent =
-    "The button is watching you.";
+    message.textContent = "ＩΔ𝙼 ᗯΛTȻHɪＮG YØᑌ";
+
+    document.body.style.filter = "brightness(0.8) contrast(1.4)";
+
+    setTimeout(() => {
+        document.body.style.filter = "";
+    }, 1500);
+}
+        
+       if (chosenEmoji === "⚠️") {
+
+    message.textContent = "the button has warned you";
+
+    document.body.style.filter = "saturate(0.5) contrast(1.2)";
+
+    setTimeout(() => {
+        document.body.style.filter = "";
+    }, 1500);
+}  
 
 }
 
@@ -209,6 +229,31 @@ function () {
     }, 2000);
 
 },
+
+  //Smiley
+  
+  function () {
+
+    const smile = document.createElement("div");
+
+    smile.textContent = "🙂";
+
+    smile.className = "floating";
+
+    smile.style.fontSize = "6rem";
+    smile.style.left = Math.random() * window.innerWidth + "px";
+    smile.style.top = Math.random() * window.innerHeight + "px";
+
+    document.body.appendChild(smile);
+
+    message.textContent = "something is smiling back.";
+
+    // make it unsettling
+    document.body.style.filter = "contrast(1.2) brightness(0.9)";
+
+    setTimeout(() => {
+        document.body.style.filter = "";
+    }, 1200);
   
     // Title corruption
     function () {
