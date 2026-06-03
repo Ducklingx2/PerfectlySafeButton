@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfectly Safe Button</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:#111;
+    color:white;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+    transition:all .5s;
+}
+
+h1{
+    margin:0;
+    font-size:3rem;
+}
+
+.subtitle{
+    margin-bottom:40px;
+    opacity:0.8;
+}
+
+button{
+    font-size:2rem;
+    padding:25px 60px;
+    border:none;
+    border-radius:12px;
+    background:red;
+    color:white;
+    cursor:pointer;
+    transition:all .3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#message{
+    margin-top:30px;
+    font-size:1.3rem;
+    text-align:center;
+    max-width:700px;
+}
+
+.floating{
+    position:absolute;
+    font-size:2rem;
+    pointer-events:none;
+}
+
+.shake{
+    animation:shake .2s;
+}
+
+@keyframes shake{
+    0%{transform:translateX(-10px);}
+    25%{transform:translateX(10px);}
+    50%{transform:translateX(-10px);}
+    75%{transform:translateX(10px);}
+    100%{transform:translateX(0);}
+}
+</style>
+</head>
+<body>
+
+<h1>Perfectly Safe Button</h1>
+
+<div class="subtitle">
+Certified 100% safe by absolutely nobody.
+</div>
+
+<button id="btn">PRESS</button>
+
+<div id="message">
+Nothing unusual has happened yet.
+</div>
+
+<script>
+
+const btn = document.getElementById("btn");
+const msg = document.getElementById("message");
+
+let clicks = 0;
+
+const randomMessages = [
+    "Everything remains under control.",
+    "The button appreciates your cooperation.",
+    "Reality has been slightly adjusted.",
+    "This is still perfectly safe.",
+    "Several ducks have taken notice.",
+    "The button is thinking.",
+    "Nothing concerning detected.",
+    "Containment remains mostly intact."
+];
+
+function spawnDuck(){
+    const duck = document.createElement("div");
+    duck.className = "floating";
+    duck.textContent = "🦆";
+
+    duck.style.left = Math.random()*window.innerWidth+"px";
+    duck.style.top = Math.random()*window.innerHeight+"px";
+
+    document.body.appendChild(duck);
+}
+
+function spawnJellyfish(){
+    const jelly = document.createElement("div");
+    jelly.className = "floating";
+    jelly.textContent = "🪼";
+
+    jelly.style.left = Math.random()*window.innerWidth+"px";
+    jelly.style.top = Math.random()*window.innerHeight+"px";
+
+    document.body.appendChild(jelly);
+}
+
+const events = [
+
+() => {
+    document.body.style.background =
+    `hsl(${Math.random()*360},70%,25%)`;
+
+    msg.textContent =
+    "The background has changed. Totally normal.";
+},
+
+() => {
+    btn.style.transform =
+    `scale(${1 + Math.random()*1.5})`;
+
+    msg.textContent =
+    "Button growth detected.";
+},
+
+() => {
+    btn.style.position = "absolute";
+
+    btn.style.left =
+    Math.random()*(window.innerWidth-200)+"px";
+
+    btn.style.top =
+    Math.random()*(window.innerHeight-100)+"px";
+
+    msg.textContent =
+    "The button relocated itself.";
+},
+
+() => {
+    spawnDuck();
+
+    msg.textContent =
+    "A duck has joined the project.";
+},
+
+() => {
+    spawnJellyfish();
+
+    msg.textContent =
+    "Unexpected jellyfish event.";
+},
+
+() => {
+    document.body.classList.add("shake");
+
+    setTimeout(()=>{
+        document.body.classList.remove("shake");
+    },200);
+
+    msg.textContent =
+    "Minor turbulence.";
+},
+
+() => {
+    msg.textContent =
+    randomMessages[
+        Math.floor(Math.random()*randomMessages.length)
+    ];
+}
+
+];
+
+btn.addEventListener("click", () => {
+
+    clicks++;
+
+    const event =
+    events[Math.floor(Math.random()*events.length)];
+
+    event();
+
+    if(clicks === 10){
+        msg.textContent =
+        "Achievement Unlocked: Persistent Clicking";
+    }
+
+    if(clicks === 25){
+        msg.textContent =
+        "The button has begun recognizing you.";
+    }
+
+    if(clicks === 50){
+        msg.textContent =
+        "The button requested a performance review.";
+    }
+
+    if(clicks === 100){
+        document.body.style.background = "black";
+        document.body.style.color = "#00ff66";
+
+        msg.textContent =
+        "CONGRATULATIONS. THE BUTTON HAS BEEN PROMOTED.";
+    }
+
+    if(clicks === 200){
+        msg.textContent =
+        "You are now Senior Executive Vice President of Button Operations.";
+    }
+
+});
+
+</script>
+
+</body>
+</html>
