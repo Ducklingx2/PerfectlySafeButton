@@ -207,7 +207,7 @@ button.addEventListener("click", () => {
         Math.random()*window.innerHeight + "px";
 
         document.body.appendChild(clone);
-    }
+    },
 
     // Rare event
     if (Math.random() < 0.05) {
