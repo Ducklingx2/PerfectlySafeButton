@@ -45,65 +45,43 @@ const events = [
     },
 
     // Random emoji
-    function () {
 
-        const emoji = document.createElement("div");
+  function () {
 
-        emoji.className = "floating";
+    const emoji = document.createElement("div");
+    emoji.className = "floating";
 
-        const emojis = [
-            "🗿",
-            "🕳️",
-            "🪼",
-            "🧍",
-            "⚠️",
-            "🍄",
-            "🧪",
-            "🫥",
-            "🧬",
-            "🆘",
-            "🛸",
-            "🎃",
-            "☃️",
-            "🪨"
-        ];
+    const emojis = [
+        "🗿","🕳️","🪼","🧍","⚠️","🍄","🧪","🫥",
+        "🧬","🆘","🛸","🎃","☃️","🪨"
+    ];
 
-        const chosenEmoji =
-        emojis[Math.floor(Math.random()*emojis.length)];
+    const chosenEmoji =
+        emojis[Math.floor(Math.random() * emojis.length)];
 
-        emoji.textContent = chosenEmoji;
+    emoji.textContent = chosenEmoji;
 
-        emoji.style.fontSize = "4rem";
+    emoji.style.fontSize = "4rem";
+    emoji.style.left = Math.random() * window.innerWidth + "px";
+    emoji.style.top = Math.random() * window.innerHeight + "px";
 
-        emoji.style.left =
-        Math.random()*window.innerWidth + "px";
+    document.body.appendChild(emoji);
 
-        emoji.style.top =
-        Math.random()*window.innerHeight + "px";
+    if (chosenEmoji === "🧬") {
+        message.textContent = "it isn't just a bot";
+    }
 
-        document.body.appendChild(emoji);
+    if (chosenEmoji === "⚠️") {
+        message.textContent = "the button has warned you";
 
-      if (chosenEmoji === "🧬") {
+        document.body.style.filter = "saturate(0.5) contrast(1.2)";
 
-    message.textContent = "it isn't just a bot";
+        setTimeout(() => {
+            document.body.style.filter = "";
+        }, 1500);
+    }
 
-}
-          
-       if (chosenEmoji === "⚠️") {
-
-    message.textContent = "the button has warned you";
-
-    document.body.style.filter = "saturate(0.5) contrast(1.2)";
-
-    setTimeout(() => {
-        document.body.style.filter = "";
-    }, 1500);
-}  
-
-}
-
-    },
-
+},
     // Button teleport
     function () {
 
