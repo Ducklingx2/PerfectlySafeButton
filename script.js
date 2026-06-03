@@ -52,15 +52,19 @@ const events = [
 
         const emojis = [
             "🗿",
-            "👁️",
-            "🫠",
             "🕳️",
             "🪼",
             "🧍",
             "⚠️",
             "🍄",
             "🧪",
-            "🫥"
+            "🫥",
+            "🧬",
+            "🆘",
+            "🛸",
+            "🎃",
+            "☃️",
+            "🪨"
         ];
 
         const chosenEmoji =
@@ -78,17 +82,12 @@ const events = [
 
         document.body.appendChild(emoji);
 
-        if (chosenEmoji === "👁️") {
+      if (chosenEmoji === "🧬") {
 
-    message.textContent = "ＩΔ𝙼 ᗯΛTȻHɪＮG YØᑌ";
+    message.textContent = "it isn't just a bot";
 
-    document.body.style.filter = "brightness(0.8) contrast(1.4)";
-
-    setTimeout(() => {
-        document.body.style.filter = "";
-    }, 1500);
 }
-        
+          
        if (chosenEmoji === "⚠️") {
 
     message.textContent = "the button has warned you";
@@ -255,6 +254,84 @@ function () {
         document.body.style.filter = "";
     }, 1200);
   
+    //epilepsy 2.0
+
+    function () {
+
+    if (Math.random() < 0.02) {
+
+        let flashes = 0;
+
+        const flash = setInterval(() => {
+
+            const colors = [
+                "black",
+                "white",
+                "red",
+                "blue",
+                "#00ff66",
+                "#ff00ff",
+                "#ffff00"
+            ];
+
+            document.body.style.background =
+                colors[Math.floor(Math.random() * colors.length)];
+
+            document.body.style.color =
+                colors[Math.floor(Math.random() * colors.length)];
+
+            document.title =
+                (Math.random() < 0.5) ? "🧿" : "⚠ SYSTEM";
+
+            flashes++;
+
+            if (flashes > 30 && Math.random() < 0.4) {
+                clearInterval(flash);
+            }
+
+        }, 70);
+
+        setTimeout(() => {
+
+            clearInterval(flash);
+
+            document.body.style.background = "#111";
+            document.body.style.color = "white";
+            document.title = "Perfectly Safe Button";
+
+        }, 4500);
+    }
+
+},
+
+  //insanity
+
+  function () {
+
+    if (Math.random() < 0.01) {
+
+        message.textContent = "🫠 it is melting";
+
+        let t = 0;
+
+        const melt = setInterval(() => {
+
+            document.body.style.transform =
+                `scale(${1 + Math.sin(t) * 0.02})`;
+
+            document.body.style.filter =
+                `hue-rotate(${t * 10}deg) blur(0.5px)`;
+
+            t++;
+
+            if (t > 20) clearInterval(melt);
+
+        }, 100);
+
+    }
+
+},
+    
     // Title corruption
     function () {
 
