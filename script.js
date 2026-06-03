@@ -8,10 +8,10 @@ const randomMessages = [ "Everything remains under control.",
                         "The button appreciates your cooperation.", 
                         "Reality has been slightly adjusted.", 
                         "This is still perfectly safe.", 
-                        "Several ducks have taken notice.", 
                         "The button is thinking.", 
                         "Nothing concerning detected.", 
-                        "Containment remains mostly intact." 
+                        "Containment remains mostly intact.",
+                        "ĿɆȺVɆ"
                        ];
 
 const events = [
@@ -107,15 +107,16 @@ const events = [
     duck.textContent = "🦆";
 
     duck.style.left =
-    Math.random()*window.innerWidth + "px";
+    Math.random() * window.innerWidth + "px";
 
     duck.style.top =
-    Math.random()*window.innerHeight + "px";
+    Math.random() * window.innerHeight + "px";
 
     document.body.appendChild(duck);
 
-},
+    message.textContent = "duckie :D";
 
+},
     //Jellyfish
 
     function () {
