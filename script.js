@@ -4,6 +4,16 @@ const message = document.getElementById("message");
 let clicks = 0;
 let narratorGone = false;
 
+const randomMessages = [ "Everything remains under control.", 
+                        "The button appreciates your cooperation.", 
+                        "Reality has been slightly adjusted.", 
+                        "This is still perfectly safe.", 
+                        "Several ducks have taken notice.", 
+                        "The button is thinking.", 
+                        "Nothing concerning detected.", 
+                        "Containment remains mostly intact." 
+                       ];
+
 const events = [
 
     // Background color change
@@ -35,7 +45,8 @@ const events = [
             "👁️",
             "⭐",
             "⚠️",
-            "❓"
+            "❓",
+            "🍑"
         ];
 
         emoji.textContent =
@@ -65,6 +76,58 @@ const events = [
         Math.random() * (window.innerHeight - 100) + "px";
 
     },
+
+    //Duckies :D
+
+    function () {
+
+    const duck = document.createElement("div");
+
+    duck.className = "floating";
+    duck.textContent = "🦆";
+
+    duck.style.left =
+    Math.random()*window.innerWidth + "px";
+
+    duck.style.top =
+    Math.random()*window.innerHeight + "px";
+
+    document.body.appendChild(duck);
+
+},
+
+    //Jellyfish
+
+    function () {
+
+    const jelly = document.createElement("div");
+
+    jelly.className = "floating";
+    jelly.textContent = "🪼";
+
+    jelly.style.left =
+    Math.random()*window.innerWidth + "px";
+
+    jelly.style.top =
+    Math.random()*window.innerHeight + "px";
+
+    document.body.appendChild(jelly);
+
+},
+
+    //Shakey Shakey
+
+    function () {
+
+    document.body.classList.add("shake");
+
+    setTimeout(() => {
+
+        document.body.classList.remove("shake");
+
+    }, 200);
+
+},
 
     // Title corruption
     function () {
@@ -150,7 +213,7 @@ button.addEventListener("click", () => {
     }
 
     // Rare event
-    if (Math.random() < 0.005) {
+    if (Math.random() < 0.05) {
 
         document.body.style.filter =
         "invert(1)";
