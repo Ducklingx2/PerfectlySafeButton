@@ -11,7 +11,8 @@ const randomMessages = [ "Everything remains under control.",
                         "The button is thinking.", 
                         "Nothing concerning detected.", 
                         "Containment remains mostly intact.",
-                        "ĿɆȺVɆ"
+                        "ĿɆȺVɆ",
+                        "HAuahUAeaUHAaeAAEUHuehuHEUEHHauheEHAUHEUa"
                        ];
 
 const events = [
