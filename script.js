@@ -135,8 +135,6 @@ const events = [
 
 },
 
-    // BEEEEEG JELLYFISH
-
   // BEEEEEG JELLYFISH
 
 function () {
@@ -177,6 +175,40 @@ function () {
 
 },
 
+//Evil Spin >:)
+  
+  function () {
+
+    document.body.style.transition =
+    "transform 2s";
+
+    document.body.style.transform =
+    `rotate(${Math.random()*360}deg)`;
+
+    message.textContent =
+    "Orientation privileges revoked.";
+
+},
+
+  //nice spin :)
+
+  function () {
+
+    document.body.style.transition =
+    "transform 2s";
+
+    document.body.style.transform =
+    "rotate(360deg)";
+
+    setTimeout(() => {
+
+        document.body.style.transform =
+        "rotate(0deg)";
+
+    }, 2000);
+
+},
+  
     // Title corruption
     function () {
 
