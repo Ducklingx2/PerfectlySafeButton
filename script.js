@@ -380,7 +380,7 @@ function () {
     message.textContent =
         "the button grew restless";
 
-}
+},
 
   //insanity
 
