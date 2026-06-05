@@ -331,19 +331,32 @@ function () {
 
 ];
 
+let runningEvent = false;
 button.addEventListener("click", () => {
 
     clicks++;
 
     // Random event
-    for (const event of events) {
-    event();
-}
+    if (runningEvent) return;
+
+runningEvent = true;
+
+const eventIndex =
+Math.floor(Math.random() * events.length);
+
+message.textContent =
+"[EVENT " + eventIndex + "]";
+
+events[eventIndex]();
+
+setTimeout(() => {
+    runningEvent = false;
+}, 100);
     // Extra chaos after 250 clicks
     if (clicks > 250 && Math.random() < 0.15) {
 
-        //const clone =
-        //button.cloneNode(true);
+        const clone =
+        button.cloneNode(true);
 
         clone.style.position = "absolute";
 
@@ -353,7 +366,7 @@ button.addEventListener("click", () => {
         clone.style.top =
         Math.random()*window.innerHeight + "px";
 
-        //document.body.appendChild(clone);
+        document.body.appendChild(clone);
     }
 
     // color invert
