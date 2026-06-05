@@ -288,7 +288,7 @@ function () {
 
   function () {
 
-    if (Math.random() < 0.01) {
+    if (Math.random() < 0.03) {
 
         message.textContent = "🫠 it is melting";
 
@@ -342,8 +342,8 @@ button.addEventListener("click", () => {
     // Extra chaos after 250 clicks
     if (clicks > 250 && Math.random() < 0.15) {
 
-        const clone =
-        button.cloneNode(true);
+        //const clone =
+        //button.cloneNode(true);
 
         clone.style.position = "absolute";
 
@@ -353,10 +353,10 @@ button.addEventListener("click", () => {
         clone.style.top =
         Math.random()*window.innerHeight + "px";
 
-        document.body.appendChild(clone);
+        //document.body.appendChild(clone);
     }
 
-    // Rare event
+    // color invert
     if (Math.random() < 0.05) {
 
         document.body.style.filter =
