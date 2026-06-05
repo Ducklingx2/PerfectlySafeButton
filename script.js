@@ -431,8 +431,15 @@ let runningEvent = false;
 button.addEventListener("click", () => {
 
     clicks++;
+  
+clearTimeout(teleportTimer);
 
- 
+teleportTimer = setTimeout(() => {
+
+    teleportButton();
+
+}, 5000);
+  
     // Random event
     if (runningEvent) return;
 
@@ -441,7 +448,13 @@ runningEvent = true;
 const eventIndex =
 Math.floor(Math.random() * events.length);
 
-events[eventIndex]();
+try {
+    events[eventIndex]();
+}
+catch(error) {
+    message.textContent =
+    "EVENT ERROR";
+}
 
 setTimeout(() => {
     runningEvent = false;
