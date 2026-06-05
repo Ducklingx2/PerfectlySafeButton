@@ -4,14 +4,16 @@ const message = document.getElementById("message");
 let clicks = 0;
 let narratorGone = false;
 
+let bambooHeight = 0;
+let bambooTower = null;
+
 const randomMessages = [ "Everything remains under control.", 
                         "The button appreciates your cooperation.", 
                         "Reality has been slightly adjusted.", 
                         "This is still perfectly safe.", 
                         "The button is thinking.", 
                         "Nothing concerning detected.", 
-                        "Containment remains mostly intact.",
-                        "ĿɆȺVɆ"
+                        "Containment remains mostly intact."
                         ];
 
 const events = [
@@ -94,6 +96,46 @@ const events = [
 
     },
 
+    //bamboo
+
+    function () {
+
+    if (!bambooTower) {
+
+        bambooTower = document.createElement("div");
+
+        bambooTower.style.position = "absolute";
+        bambooTower.style.bottom = "0";
+        bambooTower.style.left = "50%";
+
+        bambooTower.style.transform =
+            "translateX(-50%)";
+
+        bambooTower.style.fontSize = "4rem";
+        bambooTower.style.lineHeight = "0.4";
+        bambooTower.style.whiteSpace = "pre";
+
+        document.body.appendChild(bambooTower);
+    }
+
+    if (bambooHeight < 15) {
+
+        bambooTower.textContent += "🎋\n";
+
+        bambooHeight++;
+
+        message.textContent =
+            "the bamboo is growing";
+
+    } else {
+
+        message.textContent =
+            "the bamboo has reached the heavens";
+
+    }
+
+},
+
     //Duckies :D
 
     function () {
@@ -170,6 +212,41 @@ function () {
         document.body.classList.remove("shake");
 
     }, 200);
+
+},
+
+  //LEAVE
+
+  function () {
+
+    message.textContent = "ĿɆȺVɆ";
+
+    let flashes = 0;
+
+    const flash = setInterval(() => {
+
+        document.body.style.filter =
+            flashes % 2 === 0
+            ? "invert(1)"
+            : "invert(0)";
+
+        document.title =
+            flashes % 2 === 0
+            ? "ĿɆȺVɆ"
+            : "Perfectly Safe Button";
+
+        flashes++;
+
+        if (flashes > 12) {
+
+            clearInterval(flash);
+
+            document.body.style.filter = "";
+            document.title = "Perfectly Safe Button";
+
+        }
+
+    }, 10000);
 
 },
 
