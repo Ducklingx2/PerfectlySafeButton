@@ -430,7 +430,9 @@ function () {
 let runningEvent = false;
 button.addEventListener("click", () => {
 
-    clicks++;
+    message.textContent = "CLICK DETECTED";
+
+});
   
 clearTimeout(teleportTimer);
 
