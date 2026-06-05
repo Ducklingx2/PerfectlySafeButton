@@ -432,14 +432,7 @@ button.addEventListener("click", () => {
 
     clicks++;
 
-  clearTimeout(teleportTimer);
-
-teleportTimer = setTimeout(() => {
-
-    teleportButton();
-
-}, 5000);
-
+ 
     // Random event
     if (runningEvent) return;
 
