@@ -344,9 +344,6 @@ runningEvent = true;
 const eventIndex =
 Math.floor(Math.random() * events.length);
 
-message.textContent =
-"[EVENT " + eventIndex + "]";
-
 events[eventIndex]();
 
 setTimeout(() => {
