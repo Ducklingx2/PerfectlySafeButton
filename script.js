@@ -11,9 +11,8 @@ const randomMessages = [ "Everything remains under control.",
                         "The button is thinking.", 
                         "Nothing concerning detected.", 
                         "Containment remains mostly intact.",
-                        "ĿɆȺVɆ",
-                        "HAuahUAeaUHAaeAAEUHuehuHEUEHHauheEHAUHEUa"
-                       ];
+                        "ĿɆȺVɆ"
+                        ];
 
 const events = [
 
@@ -53,7 +52,7 @@ const events = [
 
     const emojis = [
         "🗿","🕳️","🪼","🧍","⚠️","🍄","🧪","🫥",
-        "🧬","🆘","🛸","🎃","☃️","🪨"
+        "🧬","🆘","🛸","🎃","☃️","🪨","🧀","🏌️","🥐","🌭"
     ];
 
     const chosenEmoji =
@@ -232,7 +231,9 @@ function () {
     setTimeout(() => {
         document.body.style.filter = "";
     }, 1200);
-  
+    
+    },
+    
     //epilepsy 2.0
 
     function () {
@@ -335,11 +336,9 @@ button.addEventListener("click", () => {
     clicks++;
 
     // Random event
-    const randomEvent =
-    events[Math.floor(Math.random() * events.length)];
-
-    randomEvent();
-
+    for (const event of events) {
+    event();
+}
     // Extra chaos after 250 clicks
     if (clicks > 250 && Math.random() < 0.15) {
 
