@@ -1,3 +1,5 @@
+alert ("JS LOADED");
+
 const button = document.getElementById("button");
 const message = document.getElementById("message");
 
