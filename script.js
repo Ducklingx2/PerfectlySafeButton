@@ -434,7 +434,7 @@ button.addEventListener("click", () => {
 
     message.textContent = "CLICK DETECTED";
 
-});
+};
   
 clearTimeout(teleportTimer);
 
