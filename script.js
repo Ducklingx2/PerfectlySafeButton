@@ -445,7 +445,10 @@ teleportTimer = setTimeout(() => {
 }, 5000);
   
     // Random event
-    if (runningEvent) return;
+
+ function ()  {
+
+if (runningEvent) return;
 
 runningEvent = true;
 
@@ -459,6 +462,7 @@ catch(error) {
     message.textContent =
     "EVENT ERROR";
 }
+ }
 
 setTimeout(() => {
     runningEvent = false;
