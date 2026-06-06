@@ -438,7 +438,7 @@ clearTimeout(teleportTimer);
 
 teleportTimer = setTimeout(() => {
 
-    teleportButton();
+    teleportButton(button);
 
 }, 5000);
   
