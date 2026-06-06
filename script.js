@@ -478,7 +478,7 @@ setTimeout(() => {
         Math.random()*window.innerHeight + "px";
 
         document.body.appendChild(clone);
-    }
+    });
 
     // color invert
     if (Math.random() < 0.05) {
