@@ -446,7 +446,7 @@ teleportTimer = setTimeout(() => {
   
     // Random event
 
- function ()  {
+ function runEvent()  {
 
 if (runningEvent) return;
 
