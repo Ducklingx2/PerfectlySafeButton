@@ -500,4 +500,4 @@ setTimeout(() => {
 
     console.log("Clicks:", clicks);
 
-});
+);
