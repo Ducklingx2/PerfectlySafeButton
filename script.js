@@ -424,7 +424,7 @@ function teleportButton(button) {
 
 let runningEvent = false;
 button.addEventListener("click", () => {
-  alert(start);
+  alert("start");
     clicks++;
    alert(clicks);
 });
