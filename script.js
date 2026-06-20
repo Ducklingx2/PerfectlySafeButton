@@ -4,6 +4,8 @@ const message = document.getElementById("message");
 let clicks = 0;
 let narratorGone = false;
 
+let teleportTimer;
+
 let bambooHeight = 0;
 let bambooTower = null;
 
