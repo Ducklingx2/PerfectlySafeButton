@@ -4,8 +4,6 @@ const message = document.getElementById("message");
 let clicks = 0;
 let narratorGone = false;
 
-let teleportTimer;
-
 let bambooHeight = 0;
 let bambooTower = null;
 
@@ -363,23 +361,6 @@ function () {
 
 },
 
-  //button restlessness
-
-  function teleportButton() {
-
-    button.style.position = "absolute";
-
-    button.style.left =
-        Math.random() * (window.innerWidth - 200) + "px";
-
-    button.style.top =
-        Math.random() * (window.innerHeight - 100) + "px";
-
-    message.textContent =
-        "the button grew restless";
-
-},
-
   //insanity
 
   function () {
@@ -443,14 +424,6 @@ button.addEventListener("click", () => {
   alert(start);
     clicks++;
    alert(clicks);
-
-  clearTimeout(teleportTimer);
-
-teleportTimer = setTimeout(() => {
-
-    teleportButton(button);
-
-}, 5000);
 });
   
 // Random event
