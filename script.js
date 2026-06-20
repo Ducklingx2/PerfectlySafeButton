@@ -412,10 +412,12 @@ function () {
 ];
 
 //click handler
-let runningEvent = false;
 button.addEventListener("click", () => {
-   clicks++;
-   alert(clicks);
+
+    clicks++;
+
+    runEvent();
+
 });
   
 // Random event
