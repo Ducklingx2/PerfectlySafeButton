@@ -4,8 +4,6 @@ const message = document.getElementById("message");
 let clicks = 0;
 let narratorGone = false;
 
-let teleportTimer;
-
 let bambooHeight = 0;
 let bambooTower = null;
 
@@ -452,15 +450,7 @@ teleportTimer = setTimeout(() => {
 }, 5000);
 });
   
-clearTimeout(teleportTimer);
-
-teleportTimer = setTimeout(() => {
-
-    teleportButton(button);
-
-}, 5000);
-  
-    // Random event
+// Random event
 
  function runEvent()  {
 
