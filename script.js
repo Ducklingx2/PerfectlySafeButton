@@ -75,7 +75,7 @@ const events = [
     if (chosenEmoji === "⚠️") {
         message.textContent = "the button has warned you";
 
-        document.body.style.filter = "saturate(0.5) contrast(1.2)";
+        document.body.style.filter = "saturate(5) contrast(12)";
 
         setTimeout(() => {
             document.body.style.filter = "";
@@ -182,7 +182,7 @@ function () {
     if (Math.random() < 0.01) {
 
         const giantJelly = document.createElement("div");
-
+        giantJelly.className = "floating";    
         giantJelly.textContent = "🪼";
 
         giantJelly.style.position = "absolute";
@@ -365,9 +365,12 @@ function () {
 
   function () {
 
+    const melty = document.createElement("div");
     if (Math.random() < 0.03) {
 
-        message.textContent = "🫠 it is melting";
+        melty.className = "floating";
+        melty.textContent = "🫠";      
+        message.textContent = "it is melting";
 
         let t = 0;
 
