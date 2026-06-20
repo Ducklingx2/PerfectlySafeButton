@@ -440,8 +440,9 @@ function teleportButton(button) {
 
 let runningEvent = false;
 button.addEventListener("click", () => {
-
+  alert(start);
     clicks++;
+   alert(clicks);
 
   clearTimeout(teleportTimer);
 
