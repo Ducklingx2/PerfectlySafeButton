@@ -441,8 +441,15 @@ function teleportButton(button) {
 let runningEvent = false;
 button.addEventListener("click", () => {
 
-    message.textContent = "CLICK DETECTED";
+    clicks++;
 
+  clearTimeout(teleportTimer);
+
+teleportTimer = setTimeout(() => {
+
+    teleportButton(button);
+
+}, 5000);
 });
   
 clearTimeout(teleportTimer);
@@ -494,7 +501,7 @@ setTimeout(() => {
     };
 
     // color invert
-    if (Math.random() < 0.05) {
+    if (Math.random() < 0.1) {
 
         document.body.style.filter =
         "invert(1)";
