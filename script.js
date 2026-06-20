@@ -411,17 +411,7 @@ function () {
 
 ];
 
-function teleportButton(button) {
-
-    button.style.position = "absolute";
-
-    button.style.left =
-        Math.random() * (window.innerWidth - 200) + "px";
-
-    button.style.top =
-        Math.random() * (window.innerHeight - 100) + "px";
-}
-
+//click handler
 let runningEvent = false;
 button.addEventListener("click", () => {
    clicks++;
