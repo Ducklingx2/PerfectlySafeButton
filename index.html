@@ -1,91 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perfectly Safe Button</title>
 
-<style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:#111;
-    color:white;
-    font-family:Arial, sans-serif;
-    overflow:hidden;
-    transition:all .5s;
-}
+    <meta charset="UTF-8">
 
-h1{
-    margin:0;
-    font-size:3rem;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-.subtitle{
-    margin-bottom:40px;
-    opacity:0.8;
-}
+    <title>Perfectly Safe Button</title>
 
-button{
-    font-size:2rem;
-    padding:25px 60px;
-    border:none;
-    border-radius:12px;
-    background:red;
-    color:white;
-    cursor:pointer;
-    transition:all .3s;
-}
+    <link rel="stylesheet" href="style.css">
 
-button:hover{
-    transform:scale(1.05);
-}
-
-#message{
-    margin-top:30px;
-    font-size:1.3rem;
-    text-align:center;
-    max-width:700px;
-}
-
-.floating{
-    position:absolute;
-    font-size:2rem;
-    pointer-events:none;
-}
-
-.shake{
-    animation:shake .2s;
-}
-
-@keyframes shake{
-    0%{transform:translateX(-10px);}
-    25%{transform:translateX(10px);}
-    50%{transform:translateX(-10px);}
-    75%{transform:translateX(10px);}
-    100%{transform:translateX(0);}
-}
-</style>
 </head>
+
+
 <body>
 
-<h1>Perfectly Safe Button</h1>
+    <main>
 
-<div class="subtitle">
-Certified 100% safe by absolutely nobody.
-</div>
+        <h1>Perfectly Safe Button</h1>
 
-<button id="button">PRESS</button>
+        <p id="message">
+            Everything remains under control.
+        </p>
 
-<div id="message">
-Nothing unusual has happened yet.
-</div>
+        <button id="button" type="button">
+            DO NOT PRESS
+        </button>
+
+    </main>
 
 
-<script src="script.js"></script>    
+    <script src="script.js"></script>
+
 </body>
+
 </html>
