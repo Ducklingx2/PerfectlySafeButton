@@ -37,7 +37,7 @@ main {
     text-align: center;
 
     position: relative;
-    z-index: 500000;
+    z-index: 500;
 }
 
 h1 {
@@ -55,14 +55,9 @@ h1 {
 }
 
 #button {
-    position: fixed;
+    position: relative;
 
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    z-index: 1000000;
+    z-index: 1000;
 
     padding: 18px 35px;
 
@@ -76,7 +71,6 @@ h1 {
     font-weight: bold;
 
     cursor: pointer;
-
     user-select: none;
 
     transition:
@@ -89,7 +83,7 @@ h1 {
 }
 
 #button:active {
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: scale(0.95);
 }
 
 
