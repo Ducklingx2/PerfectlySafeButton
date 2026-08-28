@@ -56,37 +56,63 @@ h1 {
 
 #button {
     position: relative;
-
     z-index: 1000;
 
-    padding: 18px 35px;
+    padding: 18px 38px;
 
-    border: 3px solid;
-    border-radius: 12px;
+    border: 3px solid #ff3333;
+    border-radius: 10px;
 
-    background: #B90E0A;
-    color: #900D09;
+    background: linear-gradient(
+        145deg,
+        #2b2b2b,
+        #111
+    );
 
-    font-size: 1.2rem;
-    font-weight: bold;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 1px;
 
     cursor: pointer;
     user-select: none;
 
+    box-shadow:
+        0 6px 0 #7a0000,
+        0 10px 25px rgba(0, 0, 0, 0.5);
+
     transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
         background 0.2s ease,
-        transform 0.1s ease;
+        border-color 0.2s ease;
 }
 
 #button:hover {
-    background: #333;
-    border: 3px solid red;
+    background: linear-gradient(
+        145deg,
+        #3a3a3a,
+        #171717
+    );
+
+    border-color: #ff5555;
+
+    box-shadow:
+        0 7px 0 #8a0000,
+        0 12px 30px rgba(255, 0, 0, 0.2);
+
+    transform: translateY(-2px);
 }
 
 #button:active {
-    transform: scale(0.95);
-}
+    transform: translateY(4px);
 
+    box-shadow:
+        0 2px 0 #7a0000,
+        0 5px 12px rgba(0, 0, 0, 0.4);
+}
 
 /* ==========================================
    FLOATING OBJECTS
