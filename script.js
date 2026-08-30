@@ -470,9 +470,14 @@ button.addEventListener("click", () => {
 
     clicks++;
 
+    stats.clicks = clicks;
+
     console.log("Clicks:", clicks);
+    console.log("Stats clicks:", stats.clicks);
 
     runEvent();
+
+    checkAdvancements();
 
 });
 
