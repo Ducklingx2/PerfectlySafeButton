@@ -263,7 +263,7 @@ function randomPosition() {
 // ==========================================================
 
 function spawnEffect(
-    text,
+    content,
     {
         size = "3rem",
         x = Math.random() * 100,
@@ -279,8 +279,36 @@ function spawnEffect(
     element.className =
         `effect ${className}`;
 
-    element.textContent =
-        text;
+    /*
+     * If content is an image filename,
+     * render an actual image.
+     */
+    if (
+        typeof content === "string" &&
+        /\.(png|jpg|jpeg|webp|gif)$/i.test(content)
+    ) {
+
+        const img =
+            document.createElement("img");
+
+        img.src = content;
+        img.alt = "";
+
+        img.style.width = size;
+        img.style.height = size;
+        img.style.objectFit = "contain";
+
+        element.appendChild(img);
+
+    } else {
+
+        /*
+         * Otherwise treat it as normal
+         * text / emoji content.
+         */
+        element.textContent =
+            content;
+    }
 
     element.style.left =
         `${x}vw`;
@@ -296,15 +324,12 @@ function spawnEffect(
     if (duration > 0) {
 
         setTimeout(() => {
-
             element.remove();
-
         }, duration);
 
     }
 
     return element;
-
 }
 
 
@@ -1068,7 +1093,7 @@ const events = {
 
                 const lapis =
                     spawnEffect(
-                        "🔷",
+                        "assets/LA PEACE.png",
                         {
                             size:
                                 `${1.5 + Math.random() * 2}rem`,
