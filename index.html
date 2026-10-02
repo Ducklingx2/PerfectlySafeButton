@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -21,50 +20,83 @@
         rel="stylesheet"
         href="style.css"
     >
-
 </head>
+
 
 <body>
 
-    <!-- ==================================================
-         WORLD
-         This is the part that events are allowed to mess with.
-         The body itself NEVER gets transformed.
-    ================================================== -->
+    <!-- =====================================================
+         MAIN WORLD
+         ===================================================== -->
 
     <div id="world">
 
         <div class="scanlines"></div>
 
+
+        <!-- ================= TOP BAR ================= -->
+
         <header class="topbar">
 
             <div class="brand">
 
-                <span class="brand-symbol">☢</span>
+                <span class="brand-symbol">
+                    ☢
+                </span>
 
                 <div>
-                    <strong>CONTAINMENT</strong>
-                    <span>BUTTON CONTROL SYSTEM</span>
+
+                    <strong>
+                        CONTAINMENT
+                    </strong>
+
+                    <span>
+                        BUTTON CONTROL SYSTEM
+                    </span>
+
                 </div>
 
             </div>
 
-            <div
-                id="status"
-                class="status status-safe"
-            >
-                <span class="status-dot"></span>
-                CONTAINMENT STABLE
+
+            <div class="topbar-actions">
+
+                <div
+                    id="status"
+                    class="status status-safe"
+                >
+
+                    <span class="status-dot"></span>
+
+                    CONTAINMENT STABLE
+
+                </div>
+
+
+                <button
+                    id="open-advancements"
+                    class="advancements-button"
+                    type="button"
+                >
+
+                    🏆 ADVANCEMENTS
+
+                </button>
+
             </div>
 
         </header>
 
 
-        <!-- ==================================================
-             MAIN
-        ================================================== -->
+
+        <!-- =================================================
+             MAIN CONTENT
+             ================================================= -->
 
         <main class="main-content">
+
+
+            <!-- ================= HERO ================= -->
 
             <section class="hero">
 
@@ -72,13 +104,16 @@
                     EXPERIMENT 001
                 </div>
 
+
                 <h1>
                     Perfectly Safe Button
                 </h1>
 
+
                 <p class="subtitle">
                     Everything remains under control.
                 </p>
+
 
                 <div
                     id="message"
@@ -88,45 +123,73 @@
                     Everything remains under control.
                 </div>
 
+
+                <!-- ================= BUTTON ================= -->
+
                 <div class="button-zone">
 
-                    <div class="button-ring ring-one"></div>
-                    <div class="button-ring ring-two"></div>
+                    <div
+                        class="button-ring ring-one"
+                    ></div>
+
+                    <div
+                        class="button-ring ring-two"
+                    ></div>
+
 
                     <button
                         id="button"
                         type="button"
                         aria-label="Do not press"
                     >
-                        <span class="button-warning">☢</span>
-                        <span>DO NOT PRESS</span>
+
+                        <span class="button-warning">
+                            ☢
+                        </span>
+
+                        <span>
+                            DO NOT PRESS
+                        </span>
+
                     </button>
 
                 </div>
 
+
                 <div class="warning-label">
+
                     <span></span>
+
                     UNAUTHORIZED ACTIVATION
+
                     <span></span>
+
                 </div>
 
             </section>
 
 
-            <!-- ==================================================
-                 STATS
-            ================================================== -->
+
+            <!-- ================= TELEMETRY ================= -->
 
             <aside class="stats-panel">
 
                 <div class="panel-heading">
-                    <span>LIVE TELEMETRY</span>
+
+                    <span>
+                        LIVE TELEMETRY
+                    </span>
+
                     <span class="panel-light"></span>
+
                 </div>
+
 
                 <div class="stat-grid">
 
+
                     <div class="stat-card">
+
                         <span class="stat-label">
                             CLICKS
                         </span>
@@ -134,9 +197,12 @@
                         <strong id="click-count">
                             0
                         </strong>
+
                     </div>
 
+
                     <div class="stat-card">
+
                         <span class="stat-label">
                             EVENTS
                         </span>
@@ -144,9 +210,12 @@
                         <strong id="event-count">
                             0
                         </strong>
+
                     </div>
 
+
                     <div class="stat-card">
+
                         <span class="stat-label">
                             ADVANCEMENTS
                         </span>
@@ -154,9 +223,12 @@
                         <strong id="advancement-count">
                             0
                         </strong>
+
                     </div>
 
+
                     <div class="stat-card">
+
                         <span class="stat-label">
                             UNIQUE EVENTS
                         </span>
@@ -164,29 +236,48 @@
                         <strong id="unique-count">
                             0
                         </strong>
+
                     </div>
 
                 </div>
 
+
                 <div class="telemetry-line">
-                    <span>BUTTON STATUS</span>
+
+                    <span>
+                        BUTTON STATUS
+                    </span>
+
                     <span id="button-status">
                         WAITING
                     </span>
+
                 </div>
 
+
                 <div class="telemetry-line">
-                    <span>LAST EVENT</span>
+
+                    <span>
+                        LAST EVENT
+                    </span>
+
                     <span id="last-event">
                         NONE
                     </span>
+
                 </div>
 
+
                 <div class="telemetry-line">
-                    <span>EVENT STREAK</span>
+
+                    <span>
+                        EVENT STREAK
+                    </span>
+
                     <span id="event-streak">
                         0
                     </span>
+
                 </div>
 
             </aside>
@@ -194,9 +285,8 @@
         </main>
 
 
-        <!-- ==================================================
-             FOOTER
-        ================================================== -->
+
+        <!-- ================= FOOTER ================= -->
 
         <footer>
 
@@ -213,10 +303,10 @@
     </div>
 
 
-    <!-- ==================================================
+
+    <!-- =====================================================
          EFFECT LAYER
-         Never gets transformed with the world.
-    ================================================== -->
+         ===================================================== -->
 
     <div
         id="effects"
@@ -224,22 +314,28 @@
     ></div>
 
 
-    <!-- ==================================================
+
+    <!-- =====================================================
          UI OVERLAY
-    ================================================== -->
+         ===================================================== -->
 
     <div id="ui-overlay">
 
+        <!-- Advancement unlock toasts -->
         <div
             id="advancement-container"
             aria-live="polite"
         ></div>
 
+
+        <!-- Screen flash effects -->
         <div
             id="flash"
             aria-hidden="true"
         ></div>
 
+
+        <!-- Special event overlays -->
         <div
             id="special-overlay"
             aria-hidden="true"
@@ -248,11 +344,33 @@
     </div>
 
 
-    <!-- ==================================================
+
+    <!-- =====================================================
+         ADVANCEMENT MAP
+         ===================================================== -->
+
+    <div
+        id="advancement-overlay"
+        aria-hidden="true"
+    >
+
+        <div
+            id="advancement-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Advancements"
+        ></div>
+
+    </div>
+
+
+
+    <!-- =====================================================
          SCRIPTS
-    ================================================== -->
+         ===================================================== -->
 
     <script src="script.js"></script>
+
     <script src="advancements.js"></script>
 
 </body>
