@@ -1,780 +1,602 @@
-// ============================================================
-// PERFECTLY SAFE BUTTON - ADVANCEMENT SYSTEM
-// ============================================================
+/* =========================================================
+   PERFECTLY SAFE BUTTON
+   ADVANCEMENTS SYSTEM
+   ========================================================= */
 
 const ADVANCEMENT_SAVE_KEY = "perfectly-safe-button-advancements";
 
+/* ---------------------------------------------------------
+   ADVANCEMENT DEFINITIONS
+   --------------------------------------------------------- */
+
 const AdvancementData = [
-    // =========================
-    // CLICKS
-    // =========================
+
+    /* =========================
+       CLICKS
+       ========================= */
 
     {
-        id: "first_mistake",
-        title: "First Mistake",
+        id: "first_press",
+        name: "First Press",
         description: "Press the button once.",
-        icon: "☢",
         category: "Clicks",
-        secret: false,
+        icon: "👆",
         condition: () => game.clicks >= 1
     },
 
     {
-        id: "just_one_more",
-        title: "Just One More",
+        id: "getting_started",
+        name: "Getting Started",
         description: "Press the button 10 times.",
-        icon: "10",
         category: "Clicks",
-        secret: false,
+        icon: "🔘",
         condition: () => game.clicks >= 10
     },
 
     {
-        id: "getting_concerning",
-        title: "This Is Getting Concerning",
+        id: "button_enthusiast",
+        name: "Button Enthusiast",
         description: "Press the button 50 times.",
-        icon: "!",
         category: "Clicks",
-        secret: false,
+        icon: "🟢",
         condition: () => game.clicks >= 50
     },
 
     {
-        id: "no_turning_back",
-        title: "No Turning Back",
+        id: "button_addict",
+        name: "Button Addict",
         description: "Press the button 100 times.",
-        icon: "100",
         category: "Clicks",
-        secret: false,
+        icon: "☢",
         condition: () => game.clicks >= 100
     },
 
     {
-        id: "why_here",
-        title: "Why Are You Still Here?",
+        id: "five_hundred",
+        name: "Why Are You Still Here?",
         description: "Press the button 500 times.",
-        icon: "?",
         category: "Clicks",
-        secret: false,
+        icon: "💀",
         condition: () => game.clicks >= 500
     },
 
     {
-        id: "button_veteran",
-        title: "Button Veteran",
+        id: "thousand_clicks",
+        name: "There Is No Button",
         description: "Press the button 1,000 times.",
-        icon: "★",
         category: "Clicks",
-        secret: false,
+        icon: "🫠",
         condition: () => game.clicks >= 1000
     },
 
-    {
-        id: "professional_button_presser",
-        title: "Professional Button Presser",
-        description: "Press the button 2,500 times.",
-        icon: "◆",
-        category: "Clicks",
-        secret: false,
-        condition: () => game.clicks >= 2500
-    },
 
-    // =========================
-    // DUCKS
-    // =========================
+    /* =========================
+       NATURE
+       ========================= */
 
     {
-        id: "duckling",
-        title: "Duckling",
-        description: "Encounter your first duck.",
-        icon: "🦆",
+        id: "duck_friend",
+        name: "Duck Friend",
+        description: "Encounter a duck.",
         category: "Nature",
-        secret: false,
+        icon: "🦆",
         condition: () => game.ducks >= 1
     },
 
     {
-        id: "duck_flock",
-        title: "Duck Flock",
-        description: "Collect 25 ducks.",
-        icon: "🦆",
+        id: "duck_collector",
+        name: "Duck Collector",
+        description: "Encounter 5 ducks.",
         category: "Nature",
-        secret: false,
-        condition: () => game.ducks >= 25
+        icon: "🦆",
+        condition: () => game.ducks >= 5
     },
 
     {
-        id: "one_with_ducks",
-        title: "One With The Ducks",
-        description: "Collect 100 ducks.",
-        icon: "🦆",
+        id: "duck_army",
+        name: "Duck Army",
+        description: "Encounter 10 ducks.",
         category: "Nature",
-        secret: false,
-        condition: () => game.ducks >= 100
+        icon: "🐤",
+        condition: () => game.ducks >= 10
     },
 
-    // =========================
-    // JELLYFISH
-    // =========================
+    {
+        id: "bamboo",
+        name: "Bamboo!",
+        description: "Cause bamboo to grow.",
+        category: "Nature",
+        icon: "🎋",
+        condition: () => game.bamboo >= 1
+    },
+
+
+    /* =========================
+       OCEAN
+       ========================= */
 
     {
-        id: "aquatic_incident",
-        title: "Aquatic Incident",
+        id: "jellyfish",
+        name: "Jellyfish",
         description: "Encounter a jellyfish.",
-        icon: "🪼",
         category: "Ocean",
-        secret: false,
+        icon: "🪼",
         condition: () => game.jellyfish >= 1
     },
 
     {
-        id: "deep_water",
-        title: "Deep Water",
-        description: "Encounter 25 jellyfish.",
-        icon: "🪼",
+        id: "jelly_collection",
+        name: "Aquatic Research",
+        description: "Encounter 10 jellyfish.",
         category: "Ocean",
-        secret: false,
-        condition: () => game.jellyfish >= 25
+        icon: "🌊",
+        condition: () => game.jellyfish >= 10
+    },
+
+    {
+        id: "giant_jellyfish",
+        name: "BEEG",
+        description: "Encounter a BEEG jellyfish.",
+        category: "Ocean",
+        icon: "🪼",
+        condition: () => game.giantJellyfish >= 1
     },
 
     {
         id: "poseidon",
-        title: "Poseidon",
+        name: "Poseidon",
         description: "Encounter 100 BEEG jellyfish.",
-        icon: "◉",
         category: "Ocean",
-        secret: false,
+        icon: "🔱",
         condition: () => game.giantJellyfish >= 100
     },
 
-    // =========================
-    // BAMBOO
-    // =========================
+
+    /* =========================
+       STRANGE
+       ========================= */
 
     {
-        id: "bamboo_farmer",
-        title: "Bamboo Farmer",
-        description: "Grow 10 bamboo.",
-        icon: "竹",
-        category: "Nature",
-        secret: false,
-        condition: () => game.bamboo >= 10
-    },
-
-    {
-        id: "forest_of_regret",
-        title: "Forest of Regret",
-        description: "Grow 50 bamboo.",
-        icon: "🌿",
-        category: "Nature",
-        secret: false,
-        condition: () => game.bamboo >= 50
-    },
-
-    // =========================
-    // SMILEYS
-    // =========================
-
-    {
-        id: "something_smiling",
-        title: "Something Is Smiling Back",
-        description: "Encounter a smiley.",
-        icon: "☻",
+        id: "smiley",
+        name: "Something Is Smiling",
+        description: "Encounter something that smiles.",
         category: "Strange",
-        secret: false,
+        icon: "🙂",
         condition: () => game.smileys >= 1
     },
 
     {
-        id: "it_saw_you",
-        title: "It Saw You",
-        description: "Encounter 10 smileys.",
-        icon: "◉",
+        id: "insanity",
+        name: "Insanity",
+        description: "Experience a severe reality disturbance.",
         category: "Strange",
-        secret: false,
-        condition: () => game.smileys >= 10
-    },
-
-    // =========================
-    // WARNINGS
-    // =========================
-
-    {
-        id: "you_were_warned",
-        title: "You Were Warned",
-        description: "Ignore the warning.",
-        icon: "⚠",
-        category: "Warnings",
-        secret: false,
-        condition: () => game.warnings >= 1
-    },
-
-    {
-        id: "ignored_warning",
-        title: "Ignored The Warning",
-        description: "Ignore 10 warnings.",
-        icon: "⚠",
-        category: "Warnings",
-        secret: false,
-        condition: () => game.warnings >= 10
-    },
-
-    // =========================
-    // SPIN
-    // =========================
-
-    {
-        id: "orientation_revoked",
-        title: "Orientation Privileges Revoked",
-        description: "Experience an evil spin.",
-        icon: "↻",
-        category: "Reality",
-        secret: false,
-        condition: () => game.spins >= 1
-    },
-
-    {
-        id: "dizzy",
-        title: "Dizzy",
-        description: "Spin 10 times.",
-        icon: "⟳",
-        category: "Reality",
-        secret: false,
-        condition: () => game.spins >= 10
-    },
-
-    // =========================
-    // INSANITY
-    // =========================
-
-    {
-        id: "its_melting",
-        title: "It's Melting",
-        description: "Experience the insanity event.",
-        icon: "∿",
-        category: "Reality",
-        secret: false,
+        icon: "🌀",
         condition: () => game.insanity >= 1
     },
 
     {
-        id: "reality_optional",
-        title: "Reality Is Optional",
-        description: "Reach 10 insanity events.",
-        icon: "∞",
+        id: "spin",
+        name: "Orientation Privileges Revoked",
+        description: "Make the world spin.",
+        category: "Strange",
+        icon: "🔄",
+        condition: () => game.spins >= 1
+    },
+
+    {
+        id: "nice_spin",
+        name: "Nice Spin",
+        description: "Experience a suspiciously nice spin.",
+        category: "Strange",
+        icon: "✨",
+        condition: () => game.spins >= 5
+    },
+
+
+    /* =========================
+       WARNINGS
+       ========================= */
+
+    {
+        id: "warning",
+        name: "Warning",
+        description: "Trigger a warning.",
+        category: "Warnings",
+        icon: "⚠️",
+        condition: () => game.warnings >= 1
+    },
+
+    {
+        id: "warning_collection",
+        name: "Ignored The Warnings",
+        description: "Trigger 10 warnings.",
+        category: "Warnings",
+        icon: "🚨",
+        condition: () => game.warnings >= 10
+    },
+
+
+    /* =========================
+       REALITY
+       ========================= */
+
+    {
+        id: "glitch",
+        name: "Reality Glitch",
+        description: "Experience a reality glitch.",
         category: "Reality",
-        secret: false,
-        condition: () => game.insanity >= 10
-    },
-
-    // =========================
-    // UNDERWATER
-    // =========================
-
-    {
-        id: "underwater_incident",
-        title: "Underwater Incident",
-        description: "Go underwater.",
-        icon: "≈",
-        category: "Ocean",
-        secret: false,
-        condition: () => game.bubbles >= 1
-    },
-
-    {
-        id: "deep_sea",
-        title: "Deep Sea",
-        description: "Generate 50 bubbles.",
-        icon: "○",
-        category: "Ocean",
-        secret: false,
-        condition: () => game.bubbles >= 50
-    },
-
-    {
-        id: "aquatic_ecosystem",
-        title: "Aquatic Ecosystem",
-        description: "Generate 250 bubbles.",
-        icon: "◌",
-        category: "Ocean",
-        secret: false,
-        condition: () => game.bubbles >= 250
-    },
-
-    // =========================
-    // CHINESE EVENT
-    // =========================
-
-    {
-        id: "questionable_translation",
-        title: "Questionable Translation",
-        description: "Trigger the mysterious characters.",
-        icon: "字",
-        category: "Strange",
-        secret: false,
-        condition: () => game.chineseCharacters >= 1
-    },
-
-    {
-        id: "language_barrier",
-        title: "Language Barrier",
-        description: "Generate 100 questionable characters.",
-        icon: "文",
-        category: "Strange",
-        secret: false,
-        condition: () => game.chineseCharacters >= 100
-    },
-
-    // =========================
-    // LAPIS
-    // =========================
-
-    {
-        id: "la_peace",
-        title: "LA PEACE",
-        description: "Discover the blue stuff.",
-        icon: "◆",
-        category: "Strange",
-        secret: false,
-        condition: () => game.lapis >= 1
-    },
-
-    {
-        id: "lapis_lazuli",
-        title: "Lapis Lazuli",
-        description: "Collect 50 lapis.",
-        icon: "◆",
-        category: "Strange",
-        secret: false,
-        condition: () => game.lapis >= 50
-    },
-
-    // =========================
-    // WEATHER
-    // =========================
-
-    {
-        id: "rainmaker",
-        title: "Rainmaker",
-        description: "Make it rain.",
-        icon: "☔",
-        category: "Weather",
-        secret: false,
-        condition: () => game.rainDrops >= 1
-    },
-
-    {
-        id: "weather_report",
-        title: "Weather Report",
-        description: "Generate 100 raindrops.",
-        icon: "☁",
-        category: "Weather",
-        secret: false,
-        condition: () => game.rainDrops >= 100
-    },
-
-    {
-        id: "frozen_assets",
-        title: "Frozen Assets",
-        description: "Survive a snowfall.",
-        icon: "❄",
-        category: "Weather",
-        secret: false,
-        condition: () => game.snowflakes >= 1
-    },
-
-    // =========================
-    // EXPLOSIONS
-    // =========================
-
-    {
-        id: "demolition",
-        title: "Demolition",
-        description: "Trigger an explosion.",
-        icon: "✹",
-        category: "Chaos",
-        secret: false,
-        condition: () => game.explosions >= 1
-    },
-
-    {
-        id: "demolition_expert",
-        title: "Demolition Expert",
-        description: "Trigger 25 explosions.",
-        icon: "✹",
-        category: "Chaos",
-        secret: false,
-        condition: () => game.explosions >= 25
-    },
-
-    // =========================
-    // GLITCHES
-    // =========================
-
-    {
-        id: "reality_glitch",
-        title: "Reality Glitch",
-        description: "Break reality.",
-        icon: "▧",
-        category: "Reality",
-        secret: false,
+        icon: "⚡",
         condition: () => game.glitches >= 1
     },
 
     {
-        id: "corrupted",
-        title: "Corrupted",
-        description: "Experience 25 glitches.",
-        icon: "█",
+        id: "glitch_researcher",
+        name: "Reality Researcher",
+        description: "Experience 10 reality glitches.",
         category: "Reality",
-        secret: false,
-        condition: () => game.glitches >= 25
+        icon: "👁️",
+        condition: () => game.glitches >= 10
     },
 
-    // =========================
-    // FAKE CRASH
-    // =========================
-
     {
-        id: "button_exe",
-        title: "Button.exe Has Stopped",
-        description: "Experience the fake crash.",
-        icon: ":(",
-        category: "System",
-        secret: false,
+        id: "fake_crash",
+        name: "Critical Failure",
+        description: "Experience a completely legitimate system crash.",
+        category: "Reality",
+        icon: "💻",
         condition: () => game.fakeCrashes >= 1
     },
 
     {
-        id: "definitely_not_a_crash",
-        title: "Definitely Not A Crash",
-        description: "Experience 10 fake crashes.",
-        icon: "☠",
-        category: "System",
-        secret: false,
-        condition: () => game.fakeCrashes >= 10
-    },
-
-    // =========================
-    // DINO
-    // =========================
-
-    {
-        id: "connection_lost",
-        title: "Connection Lost",
+        id: "dino",
+        name: "Connection Lost",
         description: "Lose your connection.",
+        category: "Reality",
         icon: "🦖",
-        category: "System",
-        secret: false,
         condition: () => game.dinoEvents >= 1
     },
 
-    // =========================
-    // LEAVE
-    // =========================
+
+    /* =========================
+       WEATHER
+       ========================= */
 
     {
-        id: "ragebaiter",
-        title: "Ragebaiter",
-        description: "Trigger ĿɆȺVɆ.",
-        icon: "↪",
-        category: "Strange",
-        secret: false,
-        condition: () => game.leave >= 1
+        id: "rain",
+        name: "Rainfall",
+        description: "Make it rain.",
+        category: "Weather",
+        icon: "🌧️",
+        condition: () => game.rainDrops >= 1
     },
 
     {
-        id: "you_didnt_leave",
-        title: "You Didn't Leave",
-        description: "Trigger ĿɆȺVɆ 10 times.",
-        icon: "↩",
-        category: "Strange",
-        secret: false,
-        condition: () => game.leave >= 10
+        id: "snow",
+        name: "Snow Day",
+        description: "Make it snow.",
+        category: "Weather",
+        icon: "❄️",
+        condition: () => game.snowflakes >= 1
     },
 
-    // ========================================================
-    // SECRET ADVANCEMENTS
-    // ========================================================
-
     {
-        id: "ecosystem_collapse",
-        title: "Ecosystem Collapse",
-        description: "Have ducks, bamboo, and jellyfish all present.",
-        icon: "☣",
-        category: "Secrets",
-        secret: true,
+        id: "weather_master",
+        name: "Weather Master",
+        description: "Experience both rain and snow.",
+        category: "Weather",
+        icon: "🌦️",
         condition: () =>
-            game.ducks >= 1 &&
-            game.bamboo >= 1 &&
-            game.jellyfish >= 1
+            game.rainDrops >= 1 &&
+            game.snowflakes >= 1
+    },
+
+
+    /* =========================
+       CHAOS
+       ========================= */
+
+    {
+        id: "explosion",
+        name: "Explosive Personality",
+        description: "Cause an explosion.",
+        category: "Chaos",
+        icon: "💥",
+        condition: () => game.explosions >= 1
     },
 
     {
-        id: "questionable_science",
-        title: "Questionable Science",
-        description: "Combine questionable characters with explosions.",
-        icon: "⚗",
-        category: "Secrets",
-        secret: true,
-        condition: () =>
-            game.chineseCharacters >= 1 &&
-            game.explosions >= 1
+        id: "explosive",
+        name: "Controlled Demolition",
+        description: "Cause 10 explosions.",
+        category: "Chaos",
+        icon: "💣",
+        condition: () => game.explosions >= 10
     },
 
     {
-        id: "something_lives_down_here",
-        title: "Something Lives Down Here",
-        description: "Encounter bubbles and a BEEG jellyfish.",
-        icon: "◉",
-        category: "Secrets",
-        secret: true,
-        condition: () =>
-            game.bubbles >= 1 &&
-            game.giantJellyfish >= 1
+        id: "event_streak",
+        name: "Can't Stop",
+        description: "Trigger 10 events in a row.",
+        category: "Chaos",
+        icon: "🔥",
+        condition: () => game.maxEventStreak >= 10
     },
 
     {
-        id: "nature_taking_over",
-        title: "Nature Is Taking Over",
-        description: "Combine ducks, bamboo, and rain.",
-        icon: "🌿",
-        category: "Secrets",
-        secret: true,
-        condition: () =>
-            game.ducks >= 1 &&
-            game.bamboo >= 1 &&
-            game.rainDrops >= 1
+        id: "unique_events",
+        name: "I've Seen Things",
+        description: "Experience 10 different events.",
+        category: "Chaos",
+        icon: "👀",
+        condition: () => game.uniqueEvents.length >= 10
     },
 
     {
-        id: "blue_screen",
-        title: "Blue Screen",
-        description: "Trigger both system failures.",
-        icon: "▣",
-        category: "Secrets",
-        secret: true,
-        condition: () =>
-            game.fakeCrashes >= 1 &&
-            game.dinoEvents >= 1
-    },
-
-    {
-        id: "chaos_engine",
-        title: "Chaos Engine",
-        description: "Trigger 250 events.",
-        icon: "☢",
-        category: "Secrets",
-        secret: true,
-        condition: () => game.events >= 250
-    },
-
-    {
-        id: "containment_failure",
-        title: "Containment Failure",
-        description: "Trigger 500 events.",
-        icon: "☠",
-        category: "Secrets",
-        secret: true,
-        condition: () => game.events >= 500
-    },
-
-    {
-        id: "statistical_anomaly",
-        title: "Statistical Anomaly",
-        description: "Trigger 25 different event types.",
-        icon: "∑",
-        category: "Secrets",
-        secret: true,
+        id: "event_master",
+        name: "Event Master",
+        description: "Experience 25 different events.",
+        category: "Chaos",
+        icon: "🧠",
         condition: () => game.uniqueEvents.length >= 25
     },
 
-    // ========================================================
-    // FINAL
-    // ========================================================
+
+    /* =========================
+       SYSTEM
+       ========================= */
+
+    {
+        id: "cleanup",
+        name: "Containment Protocol",
+        description: "Trigger containment.",
+        category: "System",
+        icon: "🛡️",
+        condition: () => game.events >= 1
+    },
+
+    {
+        id: "leave",
+        name: "ĿɆȺVɆ",
+        description: "Attempt to leave.",
+        category: "System",
+        icon: "🚪",
+        condition: () => game.leave >= 1
+    },
+
+
+    /* =========================
+       SECRETS
+       ========================= */
+
+    {
+        id: "secret_666",
+        name: "The Number",
+        description: "You found something you were not supposed to find.",
+        category: "Secrets",
+        icon: "666",
+        secret: true,
+        condition: () => game.clicks >= 666
+    },
+
+    {
+        id: "secret_streak",
+        name: "Don't Stop",
+        description: "Something noticed your persistence.",
+        category: "Secrets",
+        icon: "👁",
+        secret: true,
+        condition: () => game.maxEventStreak >= 20
+    },
+
+    {
+        id: "secret_everything",
+        name: "Everything Is Fine",
+        description: "There is absolutely nothing wrong.",
+        category: "Secrets",
+        icon: "🙂",
+        secret: true,
+        condition: () =>
+            game.glitches >= 5 &&
+            game.explosions >= 5 &&
+            game.ducks >= 5
+    },
+
+    {
+        id: "secret_lapis",
+        name: "Lapis Lazuli",
+        description: "You found the blue thing.",
+        category: "Secrets",
+        icon: "🔷",
+        secret: true,
+        condition: () => game.lapis >= 1
+    },
+
+    {
+        id: "secret_chinese",
+        name: "Questionable Translation",
+        description: "You probably should not translate that.",
+        category: "Secrets",
+        icon: "字",
+        secret: true,
+        condition: () => game.chineseCharacters >= 10
+    },
+
+    {
+        id: "secret_leave",
+        name: "You Really Left",
+        description: "You actually managed to leave.",
+        category: "Secrets",
+        icon: "🚪",
+        secret: true,
+        condition: () => game.leave >= 5
+    },
+
+
+    /* =========================
+       COMPLETION
+       ========================= */
 
     {
         id: "everything",
-        title: "ALL ADVANCEMENTS",
-        description: "Unlock every other advancement.",
-        icon: "★",
+        name: "Everything",
+        description: "Unlock every non-secret advancement.",
         category: "Completion",
-        secret: false,
+        icon: "☢",
         condition: () => {
-            return AdvancementData
-                .filter(a => a.id !== "everything")
-                .every(a => game.unlocked.includes(a.id));
+            const nonSecret = AdvancementData.filter(a =>
+                !a.secret && a.id !== "everything"
+            );
+
+            return nonSecret.every(a =>
+                game.unlocked.includes(a.id)
+            );
         }
     }
 ];
 
 
-// ============================================================
-// PERMANENT ADVANCEMENT SAVE
-// ============================================================
-
-const ADVANCEMENT_SAVE_KEY =
-    "perfectly-safe-button-advancements";
-
+/* =========================================================
+   SAVE SYSTEM
+   ========================================================= */
 
 function loadAdvancements() {
     try {
-        const saved = localStorage.getItem(
-            ADVANCEMENT_SAVE_KEY
+        const saved = JSON.parse(
+            localStorage.getItem(ADVANCEMENT_SAVE_KEY)
         );
 
-        if (!saved) {
-            game.unlocked = [];
-            return;
-        }
+        if (!Array.isArray(saved)) return;
 
-        const parsed = JSON.parse(saved);
-
-        if (Array.isArray(parsed)) {
-            game.unlocked = parsed.filter(id =>
-                AdvancementData.some(
-                    advancement => advancement.id === id
-                )
-            );
-        } else {
-            game.unlocked = [];
-        }
+        game.unlocked = saved.filter(id =>
+            AdvancementData.some(a => a.id === id)
+        );
 
     } catch (error) {
-        console.warn(
-            "Could not load advancements:",
-            error
-        );
-
-        game.unlocked = [];
+        console.warn("Could not load advancement data.", error);
     }
 }
 
 
 function saveAdvancements() {
-    localStorage.setItem(
-        ADVANCEMENT_SAVE_KEY,
-        JSON.stringify(game.unlocked)
-    );
+    try {
+        localStorage.setItem(
+            ADVANCEMENT_SAVE_KEY,
+            JSON.stringify(game.unlocked)
+        );
+    } catch (error) {
+        console.warn("Could not save advancement data.", error);
+    }
 }
 
 
-// ============================================================
-// UNLOCK
-// ============================================================
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
-function unlockAdvancement(id) {
+function getAdvancement(id) {
+    return AdvancementData.find(a => a.id === id);
+}
 
-    if (game.unlocked.includes(id)) {
+
+function isUnlocked(id) {
+    return game.unlocked.includes(id);
+}
+
+
+/* =========================================================
+   UNLOCK
+   ========================================================= */
+
+function unlockAdvancement(advancement) {
+
+    if (isUnlocked(advancement.id)) {
         return;
     }
 
-    const advancement =
-        AdvancementData.find(
-            a => a.id === id
-        );
+    game.unlocked.push(advancement.id);
 
-    if (!advancement) {
-        return;
-    }
-
-    game.unlocked.push(id);
+    game.advancements = game.unlocked.length;
 
     saveAdvancements();
-
-    showAdvancementToast(
-        advancement
-    );
-
     updateAdvancementUI();
+
+    if (advancement.secret) {
+        showSecretToast(advancement);
+    } else {
+        showAdvancementToast(advancement);
+    }
 }
 
 
-// ============================================================
-// CHECK
-// ============================================================
+/* =========================================================
+   CHECK ADVANCEMENTS
+   ========================================================= */
 
 function checkAdvancements() {
 
     for (const advancement of AdvancementData) {
 
-        if (
-            game.unlocked.includes(
-                advancement.id
-            )
-        ) {
+        if (isUnlocked(advancement.id)) {
             continue;
         }
 
+        let unlocked = false;
+
         try {
-
-            if (
+            unlocked = Boolean(
                 advancement.condition()
-            ) {
-                unlockAdvancement(
-                    advancement.id
-                );
-            }
-
+            );
         } catch (error) {
-
             console.warn(
-                "Advancement check failed:",
-                advancement.id,
+                `Advancement "${advancement.id}" failed.`,
                 error
             );
+        }
 
+        if (unlocked) {
+            unlockAdvancement(advancement);
         }
     }
 
-    saveAdvancements();
+    game.advancements = game.unlocked.length;
 
     updateAdvancementUI();
+    saveAdvancements();
 }
 
 
-// ============================================================
-// TOAST
-// ============================================================
+/* =========================================================
+   NORMAL TOAST
+   ========================================================= */
 
-function showAdvancementToast(
-    advancement
-) {
+function showAdvancementToast(advancement) {
 
     const container =
-        document.getElementById(
-            "advancement-container"
-        );
+        document.getElementById("advancement-container");
 
-    if (!container) {
-        return;
-    }
+    if (!container) return;
 
-    const toast =
-        document.createElement("div");
+    const toast = document.createElement("div");
 
-    toast.className =
-        "advancement-toast";
+    toast.className = "advancement-toast";
 
     toast.innerHTML = `
-        <div class="advancement-icon">
+        <div class="advancement-toast-icon">
             ${advancement.icon}
         </div>
 
-        <div class="advancement-info">
-
-            <div class="advancement-header">
-                ADVANCEMENT MADE!
+        <div class="advancement-toast-content">
+            <div class="advancement-toast-kicker">
+                ADVANCEMENT UNLOCKED
             </div>
 
-            <div class="advancement-title">
-                ${advancement.title}
+            <div class="advancement-toast-title">
+                ${advancement.name}
             </div>
 
-            <div class="advancement-description">
+            <div class="advancement-toast-description">
                 ${advancement.description}
             </div>
-
         </div>
     `;
 
@@ -785,7 +607,6 @@ function showAdvancementToast(
     });
 
     setTimeout(() => {
-
         toast.classList.remove("show");
 
         setTimeout(() => {
@@ -796,195 +617,252 @@ function showAdvancementToast(
 }
 
 
-// ============================================================
-// ADVANCEMENT MAP
-// ============================================================
+/* =========================================================
+   SECRET TOAST
+   ========================================================= */
+
+function showSecretToast(advancement) {
+
+    const container =
+        document.getElementById("advancement-container");
+
+    if (!container) return;
+
+    const toast = document.createElement("div");
+
+    toast.className =
+        "advancement-toast secret-toast";
+
+    toast.innerHTML = `
+        <div class="secret-toast-glitch"></div>
+
+        <div class="advancement-toast-icon secret-icon">
+            ${advancement.icon}
+        </div>
+
+        <div class="advancement-toast-content">
+            <div class="advancement-toast-kicker secret-kicker">
+                ⚠ SECRET DISCOVERED
+            </div>
+
+            <div class="advancement-toast-title">
+                ${advancement.name}
+            </div>
+
+            <div class="advancement-toast-description">
+                ${advancement.description}
+            </div>
+        </div>
+    `;
+
+    container.appendChild(toast);
+
+    requestAnimationFrame(() => {
+        toast.classList.add("show");
+    });
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+
+        setTimeout(() => {
+            toast.remove();
+        }, 600);
+
+    }, 6000);
+}
+
+
+/* =========================================================
+   MAP CREATION
+   ========================================================= */
 
 function createAdvancementMap() {
 
     const panel =
-        document.getElementById(
-            "advancement-panel"
-        );
+        document.getElementById("advancement-panel");
 
-    if (!panel) {
-        return;
-    }
+    if (!panel) return;
 
-    const categories = {};
+    panel.innerHTML = "";
 
-    for (
-        const advancement
-        of AdvancementData
-    ) {
+    const header = document.createElement("div");
 
-        if (
-            !categories[
-                advancement.category
-            ]
-        ) {
-            categories[
-                advancement.category
-            ] = [];
-        }
+    header.className =
+        "advancement-panel-header";
 
-        categories[
-            advancement.category
-        ].push(advancement);
-    }
-
-
-    panel.innerHTML = `
-
-        <div class="advancement-panel-header">
-
-            <div>
-
-                <div class="advancement-panel-kicker">
-                    CONTAINMENT ARCHIVE
-                </div>
-
-                <h2>
-                    ADVANCEMENT MAP
-                </h2>
-
-                <p id="advancement-progress">
-                    0 / ${AdvancementData.length}
-                    UNLOCKED
-                </p>
-
+    header.innerHTML = `
+        <div>
+            <div class="advancement-panel-kicker">
+                SYSTEM PROGRESSION
             </div>
 
-            <button
-                id="close-advancements"
-                class="advancement-close"
-                type="button"
-            >
-                ×
-            </button>
+            <h2>ADVANCEMENTS</h2>
 
+            <div class="advancement-progress-text">
+                <span id="advancement-progress-number">0</span>
+                /
+                <span id="advancement-total-number">0</span>
+                UNLOCKED
+            </div>
         </div>
 
-
-        <div
-            id="advancement-progress-bar"
-            class="advancement-progress-bar"
+        <button
+            id="advancement-close"
+            class="advancement-close"
+            type="button"
+            aria-label="Close advancements"
         >
-            <div></div>
-        </div>
-
-
-        <div id="advancement-map"></div>
+            ×
+        </button>
     `;
 
+    panel.appendChild(header);
 
-    const map =
-        document.getElementById(
-            "advancement-map"
-        );
+    const progress = document.createElement("div");
 
+    progress.className =
+        "advancement-progress-bar";
 
-    for (
-        const [category, advancements]
-        of Object.entries(categories)
-    ) {
+    progress.innerHTML = `
+        <div id="advancement-progress-fill"></div>
+    `;
 
-        const section =
+    panel.appendChild(progress);
+
+    const map = document.createElement("div");
+
+    map.id = "advancement-map";
+
+    panel.appendChild(map);
+
+    const categories = [];
+
+    for (const advancement of AdvancementData) {
+
+        /*
+         * SECRET + LOCKED:
+         * Do not put it on the map AT ALL.
+         */
+        if (
+            advancement.secret &&
+            !isUnlocked(advancement.id)
+        ) {
+            continue;
+        }
+
+        if (!categories.includes(advancement.category)) {
+            categories.push(advancement.category);
+        }
+    }
+
+    for (const category of categories) {
+
+        const categoryAdvancements =
+            AdvancementData.filter(a =>
+                a.category === category &&
+                (
+                    !a.secret ||
+                    isUnlocked(a.id)
+                )
+            );
+
+        if (!categoryAdvancements.length) {
+            continue;
+        }
+
+        const categoryElement =
             document.createElement("section");
 
-        section.className =
+        categoryElement.className =
             "advancement-category";
 
-
-        section.innerHTML = `
-
+        categoryElement.innerHTML = `
             <div class="category-title">
-                ${category.toUpperCase()}
+                <span>${category}</span>
+                <span class="category-line"></span>
             </div>
 
             <div class="advancement-grid"></div>
         `;
 
-
         const grid =
-            section.querySelector(
+            categoryElement.querySelector(
                 ".advancement-grid"
             );
 
-
-        for (
-            const advancement
-            of advancements
-        ) {
+        for (const advancement of categoryAdvancements) {
 
             const card =
-                document.createElement("article");
-
-            card.className =
-                "advancement-card";
-
-            card.dataset.id =
-                advancement.id;
+                createAdvancementCard(advancement);
 
             grid.appendChild(card);
-
-            updateAdvancementCard(
-                card,
-                advancement
-            );
         }
 
-
-        map.appendChild(section);
+        map.appendChild(categoryElement);
     }
 
+    const close =
+        document.getElementById("advancement-close");
 
-    document
-        .getElementById(
-            "close-advancements"
-        )
-        .addEventListener(
+    if (close) {
+        close.addEventListener(
             "click",
             closeAdvancementMap
         );
+    }
 }
 
 
-// ============================================================
-// CARD
-// ============================================================
+/* =========================================================
+   CARD CREATION
+   ========================================================= */
 
-function updateAdvancementCard(
-    card,
-    advancement
-) {
+function createAdvancementCard(advancement) {
 
     const unlocked =
-        game.unlocked.includes(
-            advancement.id
+        isUnlocked(advancement.id);
+
+    const card =
+        document.createElement("article");
+
+    card.className =
+        `advancement-card ${
+            unlocked
+                ? "unlocked"
+                : "locked"
+        } ${
+            advancement.secret
+                ? "secret-revealed"
+                : ""
+        }`;
+
+    /*
+     * SECRET THAT HAS BEEN UNLOCKED
+     */
+    if (advancement.secret && unlocked) {
+
+        card.classList.add(
+            "secret-revealed-card"
         );
 
-
-    if (unlocked) {
-
-        card.className =
-            "advancement-card unlocked";
-
         card.innerHTML = `
-
-            <div class="map-icon">
+            <div class="map-icon secret-card-icon">
                 ${advancement.icon}
             </div>
 
             <div class="map-info">
 
-                <strong>
-                    ${advancement.title}
-                </strong>
+                <div class="map-title">
+                    ${advancement.name}
+                </div>
 
-                <span>
+                <div class="map-description">
                     ${advancement.description}
-                </span>
+                </div>
+
+                <div class="secret-label">
+                    ⚠ SECRET DISCOVERED
+                </div>
 
             </div>
 
@@ -993,147 +871,167 @@ function updateAdvancementCard(
             </div>
         `;
 
-        return;
+        return card;
     }
 
-
-    if (advancement.secret) {
-
-        card.className =
-            "advancement-card secret";
+    /*
+     * NORMAL UNLOCKED CARD
+     */
+    if (unlocked) {
 
         card.innerHTML = `
-
             <div class="map-icon">
-                ?
+                ${advancement.icon}
             </div>
 
             <div class="map-info">
 
-                <strong>
-                    ???
-                </strong>
+                <div class="map-title">
+                    ${advancement.name}
+                </div>
 
-                <span>
-                    SECRET ADVANCEMENT
-                </span>
+                <div class="map-description">
+                    ${advancement.description}
+                </div>
+
+                <div class="map-state unlocked-state">
+                    UNLOCKED
+                </div>
 
             </div>
 
-            <div class="map-lock">
-                ?
+            <div class="map-check">
+                ✓
             </div>
         `;
 
-        return;
+        return card;
     }
 
-
-    card.className =
-        "advancement-card locked";
-
+    /*
+     * NORMAL LOCKED CARD
+     *
+     * This is intentionally NOT secret.
+     * The player gets to see exactly how
+     * to unlock it.
+     */
     card.innerHTML = `
-
-        <div class="map-icon">
-            🔒
+        <div class="map-icon locked-icon">
+            ${advancement.icon}
         </div>
 
         <div class="map-info">
 
-            <strong>
-                ${advancement.title}
-            </strong>
+            <div class="map-title">
+                ${advancement.name}
+            </div>
 
-            <span>
+            <div class="map-description">
                 ${advancement.description}
-            </span>
+            </div>
+
+            <div class="map-state locked-state">
+                🔒 LOCKED
+            </div>
 
         </div>
 
         <div class="map-lock">
-            LOCKED
+            🔒
         </div>
     `;
+
+    return card;
 }
 
 
-// ============================================================
-// UI
-// ============================================================
+/* =========================================================
+   MAP UI UPDATE
+   ========================================================= */
 
 function updateAdvancementUI() {
-
-    const total =
-        AdvancementData.length;
 
     const unlocked =
         game.unlocked.length;
 
+    const total =
+        AdvancementData.length;
 
-    const progress =
+    const progressNumber =
         document.getElementById(
-            "advancement-progress"
+            "advancement-progress-number"
         );
 
-    if (progress) {
+    const totalNumber =
+        document.getElementById(
+            "advancement-total-number"
+        );
 
-        progress.textContent =
-            `${unlocked} / ${total} UNLOCKED`;
+    const progressFill =
+        document.getElementById(
+            "advancement-progress-fill"
+        );
+
+    if (progressNumber) {
+        progressNumber.textContent = unlocked;
     }
 
+    if (totalNumber) {
+        totalNumber.textContent = total;
+    }
 
-    const bar =
-        document.querySelector(
-            "#advancement-progress-bar > div"
-        );
-
-    if (bar) {
-
+    if (progressFill) {
         const percentage =
-            total === 0
-                ? 0
-                : (unlocked / total) * 100;
+            total > 0
+                ? (unlocked / total) * 100
+                : 0;
 
-        bar.style.width =
+        progressFill.style.width =
             `${percentage}%`;
     }
 
+    /*
+     * Rebuild the map so newly discovered
+     * secret advancements appear immediately.
+     */
+    const panel =
+        document.getElementById(
+            "advancement-panel"
+        );
 
-    const stat =
+    if (panel) {
+
+        const overlay =
+            document.getElementById(
+                "advancement-overlay"
+            );
+
+        /*
+         * Only rebuild if the map currently
+         * exists and isn't being actively closed.
+         */
+        if (
+            overlay &&
+            overlay.classList.contains("open")
+        ) {
+            createAdvancementMap();
+        }
+    }
+
+    const count =
         document.getElementById(
             "advancement-count"
         );
 
-    if (stat) {
-        stat.textContent =
-            unlocked;
-    }
-
-
-    for (
-        const advancement
-        of AdvancementData
-    ) {
-
-        const card =
-            document.querySelector(
-                `.advancement-card[data-id="${advancement.id}"]`
-            );
-
-        if (card) {
-
-            updateAdvancementCard(
-                card,
-                advancement
-            );
-        }
+    if (count) {
+        count.textContent = unlocked;
     }
 }
 
 
-// ============================================================
-// OPEN / CLOSE
-// ============================================================
+/* =========================================================
+   OPEN / CLOSE
+   ========================================================= */
 
 function openAdvancementMap() {
 
@@ -1142,13 +1040,15 @@ function openAdvancementMap() {
             "advancement-overlay"
         );
 
-    if (!overlay) {
-        return;
-    }
+    if (!overlay) return;
+
+    createAdvancementMap();
 
     overlay.classList.add("open");
 
-    updateAdvancementUI();
+    document.body.classList.add(
+        "advancements-open"
+    );
 }
 
 
@@ -1159,71 +1059,93 @@ function closeAdvancementMap() {
             "advancement-overlay"
         );
 
-    if (!overlay) {
-        return;
-    }
+    if (!overlay) return;
 
     overlay.classList.remove("open");
+
+    document.body.classList.remove(
+        "advancements-open"
+    );
 }
 
 
-// ============================================================
-// INITIALIZATION
-// ============================================================
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
 
 function initializeAdvancements() {
 
     loadAdvancements();
 
+    game.advancements =
+        game.unlocked.length;
 
     window.Advancements = {
-
-        check:
-            checkAdvancements,
-
-        unlock:
-            unlockAdvancement,
-
-        data:
-            AdvancementData,
-
-        unlocked:
-            game.unlocked,
-
-        open:
-            openAdvancementMap,
-
-        close:
-            closeAdvancementMap
+        data: AdvancementData,
+        check: checkAdvancements,
+        unlock: unlockAdvancement,
+        open: openAdvancementMap,
+        close: closeAdvancementMap,
+        isUnlocked
     };
-
 
     createAdvancementMap();
 
-
-    const button =
+    const openButton =
         document.getElementById(
             "open-advancements"
         );
 
-    if (button) {
+    if (openButton) {
 
-        button.addEventListener(
+        openButton.addEventListener(
             "click",
             openAdvancementMap
         );
     }
 
+    const overlay =
+        document.getElementById(
+            "advancement-overlay"
+        );
+
+    if (overlay) {
+
+        overlay.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target === overlay
+                ) {
+                    closeAdvancementMap();
+                }
+            }
+        );
+    }
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape"
+            ) {
+                closeAdvancementMap();
+            }
+        }
+    );
 
     updateAdvancementUI();
 
+    /*
+     * Check once on startup in case
+     * something was already unlocked
+     * before this script loaded.
+     */
     checkAdvancements();
 }
 
-
-// ============================================================
-// START
-// ============================================================
 
 if (
     document.readyState === "loading"
@@ -1237,5 +1159,4 @@ if (
 } else {
 
     initializeAdvancements();
-
 }
