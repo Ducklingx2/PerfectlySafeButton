@@ -1,87 +1,467 @@
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+
+    --bg: #070907;
+    --bg-soft: #0d110d;
+
+    --panel: rgba(14, 18, 14, 0.94);
+
+    --green: #9cff00;
+    --green-bright: #c6ff5c;
+    --green-dark: #436900;
+
+    --red: #ff3131;
+    --red-dark: #710d0d;
+
+    --yellow: #ffe600;
+
+    --text: #f4f7f2;
+    --muted: #899287;
+
+    --border: rgba(156, 255, 0, 0.22);
+
+    --shadow:
+        0 20px 60px rgba(0, 0, 0, 0.6);
+
+    --mono:
+        "Courier New",
+        Courier,
+        monospace;
+
+    --ui:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
     box-sizing: border-box;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
     width: 100%;
     min-height: 100%;
+    margin: 0;
 }
 
 body {
-    background: #111;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            #172016 0%,
+            var(--bg) 55%
+        );
+
+    color: var(--text);
+
+    font-family: var(--ui);
 
     overflow: hidden;
-
-    transition:
-        background 0.3s ease,
-        color 0.3s ease,
-        filter 0.3s ease,
-        transform 1s ease;
 }
 
-main {
-    width: 100vw;
-    height: 100vh;
+
+/* =========================================================
+   WORLD
+========================================================= */
+
+#world {
+
+    position: relative;
+
+    min-height: 100vh;
 
     display: flex;
     flex-direction: column;
 
-    justify-content: center;
+    transition:
+        transform 0.8s cubic-bezier(.2,.8,.2,1),
+        filter 0.4s ease,
+        background 0.4s ease;
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   SCANLINES
+========================================================= */
+
+.scanlines {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    opacity: 0.045;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 3px,
+            #ffffff 4px
+        );
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+
+    position: relative;
+
+    z-index: 50;
+
+    display: flex;
+
+    justify-content: space-between;
     align-items: center;
+
+    padding: 18px 28px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    background:
+        rgba(5, 8, 5, 0.75);
+
+    backdrop-filter:
+        blur(14px);
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-family: var(--mono);
+
+}
+
+.brand-symbol {
+
+    display: grid;
+
+    place-items: center;
+
+    width: 38px;
+    height: 38px;
+
+    border:
+        1px solid var(--green);
+
+    color: var(--green);
+
+    font-size: 21px;
+
+    box-shadow:
+        0 0 16px
+        rgba(156, 255, 0, 0.12);
+}
+
+.brand strong {
+
+    display: block;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+}
+
+.brand span:last-child {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-family: var(--mono);
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+.status-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 10px var(--green);
+}
+
+.status-danger .status-dot {
+    background: var(--red);
+
+    box-shadow:
+        0 0 10px var(--red);
+}
+
+.status-danger {
+    color: var(--red);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main-content {
+
+    position: relative;
+
+    z-index: 20;
+
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        320px;
+
+    align-items: center;
+
+    gap: 50px;
+
+    width: min(1200px, calc(100% - 60px));
+
+    margin: auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
 
     text-align: center;
 
-    position: relative;
-    z-index: 500;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.eyebrow {
+
+    color: var(--green);
+
+    font-family: var(--mono);
+
+    font-size: 11px;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 15px;
 }
 
 h1 {
-    margin: 0 0 20px 0;
 
-    font-size: 3rem;
+    margin: 0;
+
+    font-size:
+        clamp(2.3rem, 6vw, 5rem);
+
+    line-height: 0.95;
+
+    letter-spacing: -3px;
+
+    text-shadow:
+        0 0 35px
+        rgba(156, 255, 0, 0.08);
 }
 
-#message {
-    margin: 0 0 30px 0;
+.subtitle {
 
-    font-size: 1.2rem;
+    margin: 16px 0 0;
 
-    min-height: 1.5em;
+    color: var(--muted);
+
+    font-family: var(--mono);
+
+    font-size: 13px;
 }
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+
+    width: min(650px, 90vw);
+
+    min-height: 46px;
+
+    margin-top: 24px;
+
+    padding: 13px 18px;
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    background:
+        rgba(0,0,0,0.25);
+
+    color: #d9e2d4;
+
+    font-family: var(--mono);
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    box-shadow:
+        inset 0 0 25px rgba(0,0,0,0.2);
+}
+
+
+/* =========================================================
+   BUTTON ZONE
+========================================================= */
+
+.button-zone {
+
+    position: relative;
+
+    width: 290px;
+    height: 210px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin-top: 28px;
+}
+
+
+/* =========================================================
+   BUTTON RINGS
+========================================================= */
+
+.button-ring {
+
+    position: absolute;
+
+    border:
+        1px solid rgba(156,255,0,0.15);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.ring-one {
+
+    width: 190px;
+    height: 190px;
+
+    animation:
+        pulse-ring 3s infinite ease-in-out;
+}
+
+.ring-two {
+
+    width: 250px;
+    height: 250px;
+
+    opacity: 0.5;
+
+    animation:
+        pulse-ring 3s 1s infinite ease-in-out;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
 
 #button {
+
     position: relative;
-    z-index: 1000;
 
-    padding: 18px 38px;
+    z-index: 1000000;
 
-    border: 3px solid #ff3333;
-    border-radius: 10px;
+    width: 210px;
+    height: 76px;
 
-    background: linear-gradient(
-        145deg,
-        #2b2b2b,
-        #111
-    );
+    border:
+        3px solid var(--red);
 
-    color: #ffffff;
+    border-radius: 12px;
 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: 1px;
+    background:
+        linear-gradient(
+            145deg,
+            #2b302b,
+            #0c0f0c
+        );
+
+    color: white;
+
+    font-family: var(--mono);
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
 
     cursor: pointer;
+
     user-select: none;
 
     box-shadow:
-        0 6px 0 #7a0000,
-        0 10px 25px rgba(0, 0, 0, 0.5);
+        0 7px 0 var(--red-dark),
+        0 15px 35px rgba(0,0,0,0.6),
+        0 0 30px rgba(255,0,0,0.08);
 
     transition:
         transform 0.12s ease,
@@ -91,147 +471,369 @@ h1 {
 }
 
 #button:hover {
-    background: linear-gradient(
-        145deg,
-        #3a3a3a,
-        #171717
-    );
 
-    border-color: #ff5555;
+    background:
+        linear-gradient(
+            145deg,
+            #3b443b,
+            #111611
+        );
+
+    border-color: #ff5d5d;
 
     box-shadow:
-        0 7px 0 #8a0000,
-        0 12px 30px rgba(255, 0, 0, 0.2);
+        0 8px 0 #8d1111,
+        0 17px 40px rgba(0,0,0,0.7),
+        0 0 30px rgba(255,0,0,0.15);
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 }
 
 #button:active {
-    transform: translateY(4px);
+
+    transform:
+        translateY(5px);
 
     box-shadow:
-        0 2px 0 #7a0000,
-        0 5px 12px rgba(0, 0, 0, 0.4);
+        0 2px 0 var(--red-dark),
+        0 6px 15px rgba(0,0,0,0.5);
 }
 
-/* ==========================================
-   FLOATING OBJECTS
-   ========================================== */
+.button-warning {
 
-.floating {
+    color: var(--yellow);
+
+    margin-right: 8px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   WARNING LABEL
+========================================================= */
+
+.warning-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #697064;
+
+    font-family: var(--mono);
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+.warning-label span {
+
+    width: 35px;
+
+    height: 1px;
+
+    background:
+        rgba(255,255,255,0.15);
+}
+
+
+/* =========================================================
+   STATS PANEL
+========================================================= */
+
+.stats-panel {
+
+    padding: 20px;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        var(--panel);
+
+    box-shadow:
+        var(--shadow);
+
+    backdrop-filter:
+        blur(15px);
+
+    font-family: var(--mono);
+}
+
+.panel-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 16px;
+
+    color: var(--green);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+.panel-light {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 9px var(--green);
+
+    animation:
+        blink 1.4s infinite;
+}
+
+
+/* =========================================================
+   STAT GRID
+========================================================= */
+
+.stat-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 8px;
+
+    margin-bottom: 15px;
+}
+
+.stat-card {
+
+    padding: 13px;
+
+    border:
+        1px solid rgba(255,255,255,0.07);
+
+    background:
+        rgba(255,255,255,0.025);
+}
+
+.stat-label {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+}
+
+.stat-card strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: white;
+
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   TELEMETRY
+========================================================= */
+
+.telemetry-line {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 10px 0;
+
+    border-top:
+        1px solid rgba(255,255,255,0.05);
+
+    font-size: 9px;
+}
+
+.telemetry-line span:first-child {
+    color: var(--muted);
+}
+
+.telemetry-line span:last-child {
+    color: var(--green);
+    text-align: right;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    position: relative;
+
+    z-index: 50;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 12px 28px;
+
+    border-top:
+        1px solid rgba(255,255,255,0.05);
+
+    color: #4e564d;
+
+    font-family: var(--mono);
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   EFFECTS
+========================================================= */
+
+#effects {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+.effect {
+
     position: fixed;
 
     pointer-events: none;
 
     user-select: none;
-
-    z-index: 10;
 }
 
 
-/* ==========================================
-   SHAKE EVENT
-   ========================================== */
+/* =========================================================
+   ADVANCEMENT TOASTS
+========================================================= */
 
-.shake {
-    animation: shake 0.2s linear;
+#ui-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10000000;
+
+    pointer-events: none;
 }
 
-@keyframes shake {
+#advancement-container {
 
-    0% {
-        transform: translate(0, 0);
-    }
-
-    25% {
-        transform: translate(-8px, 5px);
-    }
-
-    50% {
-        transform: translate(8px, -5px);
-    }
-
-    75% {
-        transform: translate(-5px, -8px);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-
-}
-
-/* =============================================
-
-
-    ADVANCEMENTS
-
-
-================================================ */
-
-/* ==========================================
-   ADVANCEMENT TOAST
-   ========================================== */
-
-.advancement-toast {
     position: fixed;
 
     top: 20px;
+
     right: 20px;
 
-    width: 370px;
-    min-height: 90px;
+    width: min(380px, calc(100vw - 30px));
 
     display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    align-items: flex-end;
+}
+
+.advancement-toast {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 94px;
+
+    display: flex;
+
     align-items: center;
 
     gap: 14px;
 
     padding: 12px;
 
+    overflow: hidden;
+
+    border:
+        2px solid var(--green);
+
     background:
         linear-gradient(
             135deg,
-            rgba(18, 22, 18, 0.98),
-            rgba(7, 10, 7, 0.98)
+            rgba(20,27,18,0.98),
+            rgba(5,8,5,0.99)
         );
 
-    border: 2px solid #7aff00;
-
     box-shadow:
-        0 0 0 2px #111,
-        0 0 18px rgba(122, 255, 0, 0.18),
-        0 8px 25px rgba(0, 0, 0, 0.65);
+        0 0 0 2px #050705,
+        0 0 25px rgba(156,255,0,0.15),
+        0 12px 35px rgba(0,0,0,0.65);
 
-    color: white;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    z-index: 9999999;
+    transform:
+        translateX(120%);
 
     opacity: 0;
 
-    transform: translateX(120%);
-
     transition:
-        transform 0.35s cubic-bezier(.2,.8,.2,1),
-        opacity 0.25s ease;
+        transform 0.4s cubic-bezier(.2,.8,.2,1),
+        opacity 0.3s ease;
 }
-
-
-/* ==========================================
-   SLIDE IN
-   ========================================== */
 
 .advancement-toast.show {
+
+    transform:
+        translateX(0);
+
     opacity: 1;
-    transform: translateX(0);
 }
 
+.advancement-toast::before {
 
-/* ==========================================
-   ICON
-   ========================================== */
+    content: "☢";
+
+    position: absolute;
+
+    right: 8px;
+    top: 4px;
+
+    color: var(--green);
+
+    opacity: 0.25;
+
+    font-size: 12px;
+}
 
 .advancement-icon {
 
@@ -240,102 +842,404 @@ h1 {
 
     flex-shrink: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
 
-    background: #1a2117;
+    place-items: center;
 
-    border: 2px solid #aaff33;
+    border:
+        2px solid rgba(156,255,0,0.7);
+
+    background:
+        #111711;
 
     box-shadow:
-        inset 0 0 0 2px #090b09,
-        0 0 10px rgba(122, 255, 0, 0.15);
+        inset 0 0 0 2px #050705;
 
-    font-size: 2.3rem;
-
+    font-size: 28px;
 }
-
-
-/* ==========================================
-   TEXT
-   ========================================== */
 
 .advancement-info {
 
     min-width: 0;
 
-    display: flex;
-    flex-direction: column;
-
     text-shadow:
         2px 2px 0 #000;
-
 }
-
 
 .advancement-header {
 
-    color: #aaff00;
+    color: var(--green);
 
-    font-size: 0.78rem;
+    font-size: 9px;
 
     font-weight: 900;
 
-    text-transform: uppercase;
-
     letter-spacing: 1.5px;
 
-    line-height: 1.1;
-
-    margin-bottom: 5px;
-
+    text-transform: uppercase;
 }
-
 
 .advancement-title {
 
-    color: #ffffff;
+    margin-top: 4px;
 
-    font-size: 1.08rem;
+    color: white;
 
-    font-weight: 800;
+    font-size: 15px;
 
-    line-height: 1.15;
-
-    margin-bottom: 4px;
-
+    font-weight: 900;
 }
-
 
 .advancement-description {
 
-    color: #c8d6c0;
+    margin-top: 4px;
 
-    font-size: 0.78rem;
+    color: #aeb9aa;
 
-    line-height: 1.2;
+    font-size: 10px;
 
+    line-height: 1.3;
 }
 
 
-/* ==========================================
-   ACCENT
-   ========================================== */
+/* =========================================================
+   FLASH
+========================================================= */
 
-.advancement-toast::before {
+#flash {
 
-    content: "☢";
+    position: fixed;
 
-    position: absolute;
+    inset: 0;
 
-    top: 5px;
-    right: 8px;
+    opacity: 0;
 
-    font-size: 0.8rem;
+    background: white;
 
-    color: #7aff00;
+    pointer-events: none;
+}
 
-    opacity: 0.5;
+#flash.active {
 
+    animation:
+        flash 0.35s ease;
+}
+
+
+/* =========================================================
+   SPECIAL OVERLAYS
+========================================================= */
+
+#special-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   FROST
+========================================================= */
+
+.frost {
+
+    position: fixed;
+
+    inset: 0;
+
+    border:
+        20px solid rgba(220,245,255,0.7);
+
+    box-shadow:
+        inset 0 0 80px rgba(180,230,255,0.5);
+
+    animation:
+        frost-in 0.7s ease forwards;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CRASH SCREEN
+========================================================= */
+
+.fake-crash {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #006dae;
+
+    color: white;
+
+    font-family: var(--ui);
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+.fake-crash-box {
+
+    width: min(700px, 80vw);
+
+    text-align: left;
+
+    font-size: 18px;
+}
+
+.fake-crash-face {
+
+    font-size: 80px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   DINO EVENT
+========================================================= */
+
+.dino-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999998;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #fff;
+
+    color: #222;
+
+    font-family: var(--mono);
+
+    pointer-events: none;
+}
+
+.dino {
+
+    font-size: 80px;
+
+    animation:
+        dino-run 0.5s infinite steps(2);
+}
+
+
+/* =========================================================
+   CHINESE EVENT
+========================================================= */
+
+.chinese-character {
+
+    color: var(--red);
+
+    font-family:
+        "Noto Sans CJK SC",
+        "Microsoft YaHei",
+        sans-serif;
+
+    text-shadow:
+        0 0 10px rgba(255,0,0,0.5);
+}
+
+
+/* =========================================================
+   LA PEACE
+========================================================= */
+
+.lapis {
+
+    color: #318cff;
+
+    text-shadow:
+        0 0 14px #006eff;
+
+    animation:
+        lapis-float 1.8s infinite ease-in-out;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes pulse-ring {
+
+    0%,
+    100% {
+        transform: scale(0.9);
+        opacity: 0.25;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 0.7;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+@keyframes flash {
+
+    0% {
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes frost-in {
+
+    from {
+        opacity: 0;
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes dino-run {
+
+    0% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(-5px);
+    }
+}
+
+@keyframes lapis-float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(8deg);
+    }
+}
+
+
+/* =========================================================
+   SHAKE
+========================================================= */
+
+.shake {
+
+    animation:
+        screen-shake 0.35s;
+}
+
+@keyframes screen-shake {
+
+    0%   { transform: translate(0); }
+    20%  { transform: translate(-8px, 5px); }
+    40%  { transform: translate(8px, -5px); }
+    60%  { transform: translate(-6px, -4px); }
+    80%  { transform: translate(5px, 5px); }
+    100% { transform: translate(0); }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .main-content {
+
+        grid-template-columns: 1fr;
+
+        width: min(700px, calc(100% - 30px));
+
+        gap: 25px;
+
+        padding: 35px 0;
+    }
+
+    .stats-panel {
+        width: 100%;
+    }
+
+    footer {
+        display: none;
+    }
+
+    .topbar {
+        padding: 14px 16px;
+    }
+
+    .status {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
 }
