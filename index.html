@@ -11,7 +11,12 @@
 
     <meta
         name="theme-color"
-        content="#080a08"
+        content="#070907"
+    >
+
+    <meta
+        name="description"
+        content="A perfectly safe button. Probably."
     >
 
     <title>Perfectly Safe Button</title>
@@ -34,17 +39,20 @@
         <div class="scanlines"></div>
 
 
-        <!-- ================= TOP BAR ================= -->
+        <!-- ================= HEADER ================= -->
 
         <header class="topbar">
 
             <div class="brand">
 
-                <span class="brand-symbol">
+                <span
+                    class="brand-symbol"
+                    aria-hidden="true"
+                >
                     ☢
                 </span>
 
-                <div>
+                <div class="brand-text">
 
                     <strong>
                         CONTAINMENT
@@ -66,9 +74,14 @@
                     class="status status-safe"
                 >
 
-                    <span class="status-dot"></span>
+                    <span
+                        class="status-dot"
+                        aria-hidden="true"
+                    ></span>
 
-                    CONTAINMENT STABLE
+                    <span>
+                        CONTAINMENT STABLE
+                    </span>
 
                 </div>
 
@@ -77,9 +90,19 @@
                     id="open-advancements"
                     class="advancements-button"
                     type="button"
+                    aria-label="Open advancements"
+                    aria-controls="advancement-overlay"
                 >
 
-                    🏆 ADVANCEMENTS
+                    <span
+                        aria-hidden="true"
+                    >
+                        🏆
+                    </span>
+
+                    <span>
+                        ADVANCEMENTS
+                    </span>
 
                 </button>
 
@@ -90,7 +113,7 @@
 
 
         <!-- =================================================
-             MAIN CONTENT
+             MAIN
              ================================================= -->
 
         <main class="main-content">
@@ -98,14 +121,17 @@
 
             <!-- ================= HERO ================= -->
 
-            <section class="hero">
+            <section
+                class="hero"
+                aria-labelledby="page-title"
+            >
 
                 <div class="eyebrow">
                     EXPERIMENT 001
                 </div>
 
 
-                <h1>
+                <h1 id="page-title">
                     Perfectly Safe Button
                 </h1>
 
@@ -130,20 +156,25 @@
 
                     <div
                         class="button-ring ring-one"
+                        aria-hidden="true"
                     ></div>
 
                     <div
                         class="button-ring ring-two"
+                        aria-hidden="true"
                     ></div>
 
 
                     <button
                         id="button"
                         type="button"
-                        aria-label="Do not press"
+                        aria-label="Do not press the button"
                     >
 
-                        <span class="button-warning">
+                        <span
+                            class="button-warning"
+                            aria-hidden="true"
+                        >
                             ☢
                         </span>
 
@@ -156,7 +187,10 @@
                 </div>
 
 
-                <div class="warning-label">
+                <div
+                    class="warning-label"
+                    aria-hidden="true"
+                >
 
                     <span></span>
 
@@ -172,7 +206,10 @@
 
             <!-- ================= TELEMETRY ================= -->
 
-            <aside class="stats-panel">
+            <aside
+                class="stats-panel"
+                aria-label="Live telemetry"
+            >
 
                 <div class="panel-heading">
 
@@ -180,13 +217,18 @@
                         LIVE TELEMETRY
                     </span>
 
-                    <span class="panel-light"></span>
+                    <span
+                        class="panel-light"
+                        aria-hidden="true"
+                    ></span>
 
                 </div>
 
 
                 <div class="stat-grid">
 
+
+                    <!-- CLICKS -->
 
                     <div class="stat-card">
 
@@ -201,6 +243,8 @@
                     </div>
 
 
+                    <!-- EVENTS -->
+
                     <div class="stat-card">
 
                         <span class="stat-label">
@@ -214,6 +258,8 @@
                     </div>
 
 
+                    <!-- ADVANCEMENTS -->
+
                     <div class="stat-card">
 
                         <span class="stat-label">
@@ -226,6 +272,8 @@
 
                     </div>
 
+
+                    <!-- UNIQUE EVENTS -->
 
                     <div class="stat-card">
 
@@ -241,6 +289,8 @@
 
                 </div>
 
+
+                <!-- ================= DETAILS ================= -->
 
                 <div class="telemetry-line">
 
@@ -306,6 +356,10 @@
 
     <!-- =====================================================
          EFFECT LAYER
+
+         This is intentionally OUTSIDE #world.
+         #world can rotate/transform without breaking
+         fixed-position effects.
          ===================================================== -->
 
     <div
@@ -317,18 +371,24 @@
 
     <!-- =====================================================
          UI OVERLAY
+
+         Also outside #world so transformations from events
+         cannot break fixed UI.
          ===================================================== -->
 
     <div id="ui-overlay">
 
-        <!-- Advancement unlock toasts -->
+        <!-- Advancement unlock notifications -->
+
         <div
             id="advancement-container"
             aria-live="polite"
+            aria-atomic="true"
         ></div>
 
 
-        <!-- Screen flash effects -->
+        <!-- Screen flash -->
+
         <div
             id="flash"
             aria-hidden="true"
@@ -336,6 +396,7 @@
 
 
         <!-- Special event overlays -->
+
         <div
             id="special-overlay"
             aria-hidden="true"
@@ -347,6 +408,8 @@
 
     <!-- =====================================================
          ADVANCEMENT MAP
+
+         Completely separate from #world.
          ===================================================== -->
 
     <div
@@ -354,12 +417,23 @@
         aria-hidden="true"
     >
 
-        <div
+        <section
             id="advancement-panel"
             role="dialog"
             aria-modal="true"
-            aria-label="Advancements"
-        ></div>
+            aria-labelledby="advancement-panel-title"
+        >
+
+            <!--
+
+                advancements.js dynamically fills this.
+
+                Keeping the panel empty here means there is
+                only ONE source of truth for advancement data.
+
+            -->
+
+        </section>
 
     </div>
 
@@ -367,6 +441,16 @@
 
     <!-- =====================================================
          SCRIPTS
+
+         script.js MUST load first because it creates:
+
+         game
+         events
+         spawnEffect()
+         runEvent()
+         etc.
+
+         advancements.js loads second because it uses game.
          ===================================================== -->
 
     <script src="script.js"></script>
