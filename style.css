@@ -2529,3 +2529,434 @@ footer {
     filter: grayscale(0.35);
     cursor: not-allowed !important;
 }
+
+/* ============================================================
+   UNKNOWN CALLER
+   ============================================================ */
+
+.unknown-caller {
+    position: fixed;
+    inset: 0;
+    z-index: 1000000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(40, 80, 55, 0.18),
+            rgba(0, 0, 0, 0.72)
+        );
+
+    backdrop-filter: blur(10px);
+
+    animation: caller-in 0.35s ease;
+}
+
+.phone-call {
+    width: min(390px, 88vw);
+
+    padding: 42px 30px 30px;
+
+    border-radius: 32px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.1),
+            rgba(255,255,255,0.025)
+        ),
+        rgba(12, 18, 15, 0.96);
+
+    border: 1px solid rgba(255,255,255,0.14);
+
+    box-shadow:
+        0 40px 120px rgba(0,0,0,0.7),
+        inset 0 1px rgba(255,255,255,0.08);
+
+    animation: phone-float 3s ease-in-out infinite;
+}
+
+.phone-status {
+    font-size: 0.65rem;
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    opacity: 0.5;
+
+    margin-bottom: 24px;
+}
+
+.phone-icon {
+    width: 100px;
+    height: 100px;
+
+    margin: 0 auto 22px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    font-size: 3rem;
+
+    background: rgba(255,255,255,0.07);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    animation: phone-ring 1.2s ease-in-out infinite;
+}
+
+.phone-connected {
+    animation: none;
+}
+
+.phone-title {
+    font-size: 1.5rem;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.phone-number {
+    margin-top: 8px;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 0.9rem;
+
+    opacity: 0.5;
+
+    letter-spacing: 2px;
+}
+
+.phone-ringing {
+    margin-top: 12px;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 3px;
+
+    opacity: 0.65;
+
+    animation: ringing-text 1s infinite alternate;
+}
+
+.phone-actions {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 32px;
+}
+
+.phone-actions button {
+    border: 0;
+
+    padding: 15px 10px;
+
+    border-radius: 14px;
+
+    font: inherit;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        transform 150ms ease,
+        filter 150ms ease;
+}
+
+.phone-actions button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.15);
+}
+
+.phone-answer {
+    background: #3e8f55;
+    color: white;
+}
+
+.phone-decline {
+    background: #8c3d3d;
+    color: white;
+}
+
+.phone-actions span {
+    margin-right: 6px;
+}
+
+.ghosted-message {
+    margin-top: 20px;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.05);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 2px;
+
+    animation: ghosted-glitch 0.8s infinite alternate;
+}
+
+.call-ending {
+    animation: caller-out 0.3s ease forwards;
+}
+
+@keyframes caller-in {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes caller-out {
+    to {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+}
+
+@keyframes phone-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes phone-ring {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+
+    15% {
+        transform: rotate(-10deg);
+    }
+
+    30% {
+        transform: rotate(10deg);
+    }
+
+    45% {
+        transform: rotate(-7deg);
+    }
+
+    60% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes ringing-text {
+    from {
+        opacity: 0.35;
+    }
+
+    to {
+        opacity: 0.9;
+    }
+}
+
+@keyframes ghosted-glitch {
+    from {
+        transform: translateX(-1px);
+    }
+
+    to {
+        transform: translateX(1px);
+    }
+}
+
+
+/* ============================================================
+   DUCK REVIEW
+   ============================================================ */
+
+.duck-review {
+    position: fixed;
+    inset: 0;
+
+    z-index: 999998;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(4px);
+
+    opacity: 0;
+
+    transition: opacity 300ms ease;
+}
+
+.duck-review-visible {
+    opacity: 1;
+}
+
+.duck-review-window {
+    width: min(650px, 92vw);
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.09),
+            rgba(255,255,255,0.025)
+        ),
+        rgba(10, 17, 13, 0.96);
+
+    border: 1px solid rgba(255,255,255,0.14);
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,0.65);
+
+    transform: translateY(25px) scale(0.96);
+
+    transition:
+        transform 450ms cubic-bezier(.2,.8,.2,1);
+}
+
+.duck-review-visible .duck-review-window {
+    transform: translateY(0) scale(1);
+}
+
+.duck-review-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 15px 20px;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 0.7rem;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+
+    background: rgba(255,255,255,0.035);
+}
+
+.duck-review-header span:last-child {
+    opacity: 0.6;
+}
+
+.duck-review-body {
+    display: flex;
+
+    align-items: center;
+
+    gap: 40px;
+
+    padding: 45px;
+}
+
+.duck-review-duck {
+    flex-shrink: 0;
+
+    width: 150px;
+    height: 150px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    font-size: 6rem;
+
+    background: rgba(255,255,255,0.05);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    animation:
+        duck-bob 1.4s ease-in-out infinite;
+}
+
+.duck-review-info {
+    text-align: left;
+}
+
+.duck-review-label {
+    font-size: 0.65rem;
+
+    letter-spacing: 2px;
+
+    opacity: 0.45;
+
+    margin-bottom: 12px;
+}
+
+.duck-review-score {
+    font-size: 1.5rem;
+
+    letter-spacing: 3px;
+}
+
+.duck-review-text {
+    margin-top: 14px;
+
+    font-size: 1rem;
+
+    opacity: 0.75;
+}
+
+.duck-review-footer {
+    padding: 12px 20px;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    font-size: 0.65rem;
+
+    letter-spacing: 3px;
+
+    opacity: 0.4;
+
+    text-align: right;
+}
+
+@keyframes duck-bob {
+
+    0%, 100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(2deg);
+    }
+
+}
+
+
