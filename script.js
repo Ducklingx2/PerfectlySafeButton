@@ -97,6 +97,8 @@ const game = {
 
     weatherForecast: null,
 
+    rightForOnce: false,
+
     uniqueEvents: [],
 
     eventCounts: {},
@@ -2184,7 +2186,7 @@ anti_click: {
 
             for (let i = 0; i < queued.length; i++) {
                 setTimeout(() => {
-                    runRandomEvent();
+                    runEvent();
                 }, i * 200);
             }
 
@@ -2421,6 +2423,7 @@ button_self_press: {
     name: "TRAFFIC LIGHT",
 
     run() {
+        lockButton();
         setMessage("TRAFFIC CONTROL HAS ARRIVED.");
 
         const light = document.createElement("div");
@@ -2470,6 +2473,8 @@ button_self_press: {
         setTimeout(() => {
             light.remove();
         }, 6500);
+
+        unlockButton();
     }
 },
 
@@ -2479,45 +2484,69 @@ snail: {
     run() {
         game.snailsSeen++;
 
+        lockButton();
         setMessage("A SNAIL HAS ARRIVED.");
 
-        const snail =
-            document.createElement("div");
+        const event = document.createElement("div");
+        event.className = "snail-event";
 
-        snail.className = "random-snail";
-        snail.textContent = "🐌";
+        event.innerHTML = `
+            <div class="snail-event-card">
+                <div class="snail-event-label">NATURE EVENT</div>
 
-        snail.style.left = "-8vw";
-        snail.style.top =
-            `${25 + Math.random() * 50}vh`;
+                <div class="snail-event-title">
+                    A SNAIL
+                </div>
 
-        document.body.appendChild(snail);
+                <div class="snail-stage">
+                    <div class="snail">🐌</div>
+                    <div class="snail-ground"></div>
+                </div>
 
-        const distance =
-            window.innerWidth + 200;
+                <div class="snail-status">
+                    IT IS MOVING.
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(event);
+
+        const snail = event.querySelector(".snail");
+        const status = event.querySelector(".snail-status");
 
         snail.animate(
             [
-                {
-                    transform: "translateX(0)"
-                },
-                {
-                    transform:
-                        `translateX(${distance}px)`
-                }
+                { transform: "translateX(-180px)" },
+                { transform: "translateX(520px)" }
             ],
             {
-                duration: 12000,
+                duration: 9000,
                 easing: "linear"
             }
         );
 
         setTimeout(() => {
-            snail.remove();
-        }, 12200);
+            status.textContent = "IT HAS ARRIVED.";
+        }, 9000);
+
+        setTimeout(() => {
+            status.textContent = "PATIENCE.";
+        }, 9700);
+
+        setTimeout(() => {
+            event.remove();
+            unlockButton();
+
+            setMessage("THE SNAIL HAS LEFT.");
+
+            if (typeof window.Advancements !== "undefined") {
+                window.Advancements.check();
+            }
+        }, 10500);
     }
 },
 
+    
 potato: {
     name: "POTATO",
 
@@ -3658,6 +3687,28 @@ system_zero: {
 // EVENT FUNCTIONS
 // ==========================================================
 
+if (
+    game.weatherForecast &&
+    game.weatherForecast === eventId &&
+    game.lastEvent === "weather_report"
+) {
+
+    game.weatherForecast = null;
+
+    game.rightForOnce = true;
+
+    setMessage(
+        "FORECAST CONFIRMED. RIGHT FOR ONCE."
+    );
+
+    if (
+        typeof window.Advancements
+        !== "undefined"
+    ) {
+        window.Advancements.check();
+    }
+}
+
 
 function startDinoGame() {
 
@@ -3940,6 +3991,16 @@ function startDinoGame() {
 // ==========================================================
 // EVENT ENGINE
 // ==========================================================
+
+function lockButton() {
+    button.disabled = true;
+    button.classList.add("event-locked");
+}
+
+function unlockButton() {
+    button.disabled = false;
+    button.classList.remove("event-locked");
+}
 
 function runEvent() {
 
