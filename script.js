@@ -1500,60 +1500,12 @@ const events = {
 
 
     dino: {
-
-        name: "Connection Lost",
+        name: "DINO RUN",
 
         run() {
-
-            game.dinoEvents++;
-
-            setMessage(
-                "Check your internet connection."
-            );
-
-            const screen =
-                document.createElement("div");
-
-            screen.className =
-                "dino-screen";
-
-            screen.innerHTML = `
-
-                <div
-                    style="
-                        font-size:12px;
-                        margin-bottom:30px;
-                    "
-                >
-                    NO INTERNET
-                </div>
-
-                <div class="dino">
-                    🦖
-                </div>
-
-                <div
-                    style="
-                        margin-top:25px;
-                        color:#777;
-                    "
-                >
-                    Press the button to reconnect
-                </div>
-
-            `;
-
-            specialOverlay.appendChild(screen);
-
-            setTimeout(
-                () => screen.remove(),
-                4000
-            );
-
+            startDinoGame();
         }
-
     },
-
 
     leave: {
 
@@ -1583,7 +1535,1213 @@ const events = {
 
     }
 
+
+// ============================================================
+// NEW CHAOS EVENTS
+// ============================================================
+
+button_moved: {
+    name: "BUTTON HAS MOVED",
+
+    run() {
+        setMessage("THE BUTTON HAS EXERCISED ITS RIGHT TO MOVE.");
+
+        const original = {
+            left: button.style.left,
+            top: button.style.top,
+            transform: button.style.transform
+        };
+
+        button.style.position = "relative";
+        button.style.transition = "transform 0.8s cubic-bezier(.2,.8,.2,1)";
+
+        const x = (Math.random() - 0.5) * 500;
+        const y = (Math.random() - 0.5) * 300;
+
+        button.style.transform = `translate(${x}px, ${y}px)`;
+
+        setTimeout(() => {
+            button.style.transform = "translate(0, 0)";
+
+            setTimeout(() => {
+                button.style.transition = "";
+            }, 800);
+        }, 4500);
+    }
+},
+
+button_shrink: {
+    name: "BUTTON SHRINK",
+
+    run() {
+        setMessage("THE BUTTON IS BECOMING LESS OF A BUTTON.");
+
+        button.style.transition =
+            "transform 0.8s cubic-bezier(.2,.8,.2,1)";
+
+        button.style.transform =
+            "scale(0.08) rotate(-8deg)";
+
+        setTimeout(() => {
+            button.style.transform =
+                "scale(1) rotate(0deg)";
+        }, 5000);
+    }
+},
+
+button_grow: {
+    name: "BUTTON GROW",
+
+    run() {
+        setMessage("WE MAY HAVE OVERENGINEERED THE BUTTON.");
+
+        button.style.transition =
+            "transform 0.8s cubic-bezier(.2,.8,.2,1)";
+
+        button.style.transform =
+            "scale(2.4)";
+
+        setTimeout(() => {
+            button.style.transform =
+                "scale(1)";
+        }, 5000);
+    }
+},
+
+button_lying: {
+    name: "THE BUTTON IS LYING",
+
+    run() {
+        const lies = [
+            "PRESS ME",
+            "TOTALLY SAFE",
+            "TRUST ME",
+            "NOTHING WILL HAPPEN",
+            "SERIOUSLY",
+            "THIS IS FINE",
+            "CLICK HERE",
+            "ABSOLUTELY HARMLESS"
+        ];
+
+        const original =
+            button.querySelector("span:last-child");
+
+        if (!original) return;
+
+        const oldText = original.textContent;
+
+        original.textContent =
+            lies[Math.floor(Math.random() * lies.length)];
+
+        setMessage("THE BUTTON IS LYING.");
+
+        setTimeout(() => {
+            original.textContent = oldText;
+        }, 5000);
+    }
+},
+
+reverse_controls: {
+    name: "REVERSE CONTROLS",
+
+    run() {
+        setMessage("INPUT CALIBRATION: QUESTIONABLE");
+
+        document.body.classList.add("reverse-controls");
+
+        const handler = (event) => {
+            event.preventDefault();
+        };
+
+        // Make the pointer feel wrong by moving the button
+        // whenever the pointer approaches it.
+        const move = (event) => {
+            const rect = button.getBoundingClientRect();
+
+            const dx =
+                event.clientX -
+                (rect.left + rect.width / 2);
+
+            const dy =
+                event.clientY -
+                (rect.top + rect.height / 2);
+
+            button.style.transform =
+                `translate(${-dx * 0.12}px, ${-dy * 0.12}px)`;
+        };
+
+        document.addEventListener("mousemove", move);
+
+        setTimeout(() => {
+            document.removeEventListener("mousemove", move);
+
+            button.style.transform = "";
+            document.body.classList.remove("reverse-controls");
+        }, 8000);
+    }
+},
+
+reality_404: {
+    name: "404 REALITY",
+
+    run() {
+        setMessage("REALITY NOT FOUND.");
+
+        const overlay =
+            document.createElement("div");
+
+        overlay.className = "reality-404";
+
+        overlay.innerHTML = `
+            <div class="reality-404-box">
+                <div class="reality-404-code">404</div>
+                <div class="reality-404-title">
+                    REALITY NOT FOUND
+                </div>
+                <div class="reality-404-text">
+                    The requested reality could not be located.
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        setTimeout(() => {
+            overlay.remove();
+        }, 4500);
+    }
+},
+
+system_update: {
+    name: "SYSTEM UPDATE",
+
+    run() {
+        setMessage("UPDATING BUTTON...");
+
+        const overlay =
+            document.createElement("div");
+
+        overlay.className = "system-update";
+
+        overlay.innerHTML = `
+            <div class="system-update-box">
+                <div class="system-update-title">
+                    BUTTON SYSTEM UPDATE
+                </div>
+
+                <div class="system-update-bar">
+                    <div class="system-update-fill"></div>
+                </div>
+
+                <div class="system-update-percent">
+                    0%
+                </div>
+
+                <div class="system-update-status">
+                    INITIALIZING...
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        const fill =
+            overlay.querySelector(".system-update-fill");
+
+        const percent =
+            overlay.querySelector(".system-update-percent");
+
+        const status =
+            overlay.querySelector(".system-update-status");
+
+        let progress = 0;
+
+        const statuses = [
+            "INITIALIZING...",
+            "CALIBRATING BUTTON...",
+            "UPDATING REALITY...",
+            "INSTALLING QUESTIONABLE FEATURES...",
+            "REMOVING SAFETY...",
+            "ALMOST DONE..."
+        ];
+
+        const interval = setInterval(() => {
+
+            progress +=
+                Math.random() * 13;
+
+            if (progress > 100)
+                progress = 100;
+
+            fill.style.width =
+                `${progress}%`;
+
+            percent.textContent =
+                `${Math.floor(progress)}%`;
+
+            status.textContent =
+                statuses[
+                    Math.min(
+                        statuses.length - 1,
+                        Math.floor(progress / 18)
+                    )
+                ];
+
+            if (progress >= 100) {
+
+                clearInterval(interval);
+
+                status.textContent =
+                    "UPDATE FAILED SUCCESSFULLY";
+
+                setTimeout(() => {
+                    overlay.remove();
+                }, 1800);
+            }
+
+        }, 350);
+    }
+},
+
+copy_machine: {
+    name: "COPY MACHINE",
+
+    run() {
+        setMessage("COPY MACHINE ACTIVATED.");
+
+        const copies = [];
+
+        for (let i = 0; i < 12; i++) {
+
+            const clone =
+                button.cloneNode(true);
+
+            clone.removeAttribute("id");
+
+            clone.classList.add("button-copy");
+
+            clone.style.position = "fixed";
+
+            clone.style.left =
+                `${10 + Math.random() * 80}vw`;
+
+            clone.style.top =
+                `${10 + Math.random() * 80}vh`;
+
+            clone.style.transform =
+                `rotate(${Math.random() * 30 - 15}deg) scale(${0.5 + Math.random() * 0.6})`;
+
+            clone.disabled = true;
+
+            document.body.appendChild(clone);
+            copies.push(clone);
+        }
+
+        setTimeout(() => {
+            copies.forEach(copy => copy.remove());
+        }, 5000);
+    }
+},
+
+button_cloning: {
+    name: "BUTTON CLONING",
+
+    run() {
+        setMessage("BUTTON CLONING IN PROGRESS.");
+
+        const clones = [];
+        let count = 2;
+
+        const interval = setInterval(() => {
+
+            for (let i = 0; i < count; i++) {
+
+                const clone =
+                    button.cloneNode(true);
+
+                clone.removeAttribute("id");
+
+                clone.classList.add("button-copy");
+
+                clone.style.position = "fixed";
+
+                clone.style.left =
+                    `${Math.random() * 90}vw`;
+
+                clone.style.top =
+                    `${Math.random() * 90}vh`;
+
+                clone.style.transform =
+                    `scale(${Math.max(0.3, 1 / count)})`;
+
+                clone.disabled = true;
+
+                document.body.appendChild(clone);
+
+                clones.push(clone);
+            }
+
+            count *= 2;
+
+            if (count > 16) {
+                clearInterval(interval);
+            }
+
+        }, 500);
+
+        setTimeout(() => {
+            clearInterval(interval);
+
+            clones.forEach(clone => {
+                clone.remove();
+            });
+        }, 5500);
+    }
+},
+
+the_void: {
+    name: "THE VOID",
+
+    run() {
+        setMessage("THE VOID HAS ARRIVED.");
+
+        const overlay =
+            document.createElement("div");
+
+        overlay.className = "void-overlay";
+
+        document.body.appendChild(overlay);
+
+        setTimeout(() => {
+            overlay.classList.add("active");
+        }, 20);
+
+        setTimeout(() => {
+            overlay.classList.remove("active");
+
+            setTimeout(() => {
+                overlay.remove();
+            }, 1000);
+
+        }, 4500);
+    }
+},
+
+low_battery: {
+    name: "LOW BATTERY",
+
+    run() {
+        setMessage("BUTTON BATTERY CRITICALLY LOW.");
+
+        const battery =
+            document.createElement("div");
+
+        battery.className = "fake-battery";
+
+        battery.innerHTML = `
+            <span>⚠ BUTTON BATTERY</span>
+            <strong>3%</strong>
+        `;
+
+        document.body.appendChild(battery);
+
+        setTimeout(() => {
+            battery.querySelector("strong").textContent = "1%";
+        }, 1500);
+
+        setTimeout(() => {
+            battery.querySelector("strong").textContent = "0%";
+        }, 3000);
+
+        setTimeout(() => {
+            battery.querySelector("strong").textContent = "101%";
+            setMessage("BUTTON BATTERY: 101%");
+
+        }, 4200);
+
+        setTimeout(() => {
+            battery.remove();
+        }, 6000);
+    }
+},
+
+admin_mode: {
+    name: "ADMIN MODE",
+
+    run() {
+        setMessage("ADMINISTRATOR ACCESS GRANTED.");
+
+        const overlay =
+            document.createElement("div");
+
+        overlay.className = "admin-overlay";
+
+        overlay.innerHTML = `
+            <div class="admin-panel">
+                <div class="admin-header">
+                    ADMINISTRATOR ACCESS GRANTED
+                </div>
+
+                <div class="admin-row">
+                    <span>USER</span>
+                    <strong>UNKNOWN</strong>
+                </div>
+
+                <div class="admin-row">
+                    <span>CLEARANCE</span>
+                    <strong>WHY</strong>
+                </div>
+
+                <div class="admin-row">
+                    <span>THREAT LEVEL</span>
+                    <strong>YES</strong>
+                </div>
+
+                <div class="admin-row">
+                    <span>BUTTON STATUS</span>
+                    <strong>QUESTIONABLE</strong>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        setTimeout(() => {
+            overlay.remove();
+            setMessage("ADMIN ACCESS REVOKED.");
+        }, 5000);
+    }
+},
+
+duplicate_universe: {
+    name: "DUPLICATE UNIVERSE",
+
+    run() {
+        setMessage("A SECOND UNIVERSE HAS BEEN DETECTED.");
+
+        const clone =
+            document.getElementById("world").cloneNode(true);
+
+        clone.id = "duplicate-universe";
+
+        clone.style.position = "fixed";
+        clone.style.inset = "0";
+        clone.style.zIndex = "999998";
+        clone.style.pointerEvents = "none";
+        clone.style.opacity = "0.72";
+        clone.style.transform =
+            "translate(18px, 18px)";
+
+        document.body.appendChild(clone);
+
+        setTimeout(() => {
+            clone.remove();
+            setMessage("TIMELINE COLLAPSED.");
+        }, 5000);
+    }
+},
+
+timeout: {
+    name: "TIMEOUT",
+
+    run() {
+        setMessage("BUTTON IS THINKING...");
+
+        button.disabled = true;
+
+        const original =
+            button.querySelector("span:last-child");
+
+        if (!original) return;
+
+        const oldText =
+            original.textContent;
+
+        let count = 3;
+
+        original.textContent = count;
+
+        const interval = setInterval(() => {
+
+            count--;
+
+            if (count > 0) {
+                original.textContent = count;
+            } else {
+                clearInterval(interval);
+
+                original.textContent =
+                    "DECISION: PRESSING IS PERMITTED";
+
+                setTimeout(() => {
+                    original.textContent = oldText;
+                    button.disabled = false;
+                }, 1800);
+            }
+
+        }, 1000);
+    }
+},
+
+containment_breach: {
+    name: "CONTAINMENT BREACH",
+
+    run() {
+        game.warnings++;
+
+        setMessage("CONTAINMENT BREACH.");
+
+        document.body.classList.add(
+            "containment-breach"
+        );
+
+        for (let i = 0; i < 15; i++) {
+            spawnEffect(
+                "⚠",
+                {
+                    size: "2rem",
+                    x: Math.random() * 100,
+                    y: Math.random() * 100,
+                    className: "warning-effect",
+                    duration: 3500
+                }
+            );
+        }
+
+        setTimeout(() => {
+            document.body.classList.remove(
+                "containment-breach"
+            );
+        }, 4500);
+    }
+},
+
+gravity_failure: {
+    name: "GRAVITY FAILURE",
+
+    run() {
+        setMessage("GRAVITY HAS LEFT THE BUILDING.");
+
+        effects.classList.add(
+            "gravity-failure"
+        );
+
+        setTimeout(() => {
+            effects.classList.remove(
+                "gravity-failure"
+            );
+        }, 6000);
+    }
+},
+
+anti_click: {
+    name: "ANTI-CLICK",
+
+    run() {
+        setMessage("INPUT BUFFERING...");
+
+        const queued =
+            [];
+
+        const handler = () => {
+            queued.push(Date.now());
+            setMessage(
+                `INPUT BUFFERED: ${queued.length}`
+            );
+        };
+
+        button.addEventListener(
+            "click",
+            handler,
+            true
+        );
+
+        setTimeout(() => {
+
+            button.removeEventListener(
+                "click",
+                handler,
+                true
+            );
+
+            setMessage(
+                `BUFFER FLUSHED: ${queued.length} INPUTS`
+            );
+
+            for (let i = 0; i < queued.length; i++) {
+                setTimeout(() => {
+                    runRandomEvent();
+                }, i * 200);
+            }
+
+        }, 7000);
+    }
+},
+
+button_remembers: {
+    name: "THE BUTTON REMEMBERS",
+
+    run() {
+        setMessage(
+            `YOU HAVE PRESSED ME ${game.clicks} TIMES.`
+        );
+
+        spawnEffect(
+            `YOU HAVE PRESSED ME ${game.clicks} TIMES.`,
+            {
+                size: "2rem",
+                x: 50,
+                y: 30,
+                className: "memory-message",
+                duration: 4000
+            }
+        );
+    }
+},
+
+floor_is_lava: {
+    name: "THE FLOOR IS LAVA",
+
+    run() {
+        setMessage("THE FLOOR IS LAVA.");
+
+        const lava =
+            document.createElement("div");
+
+        lava.className = "lava-floor";
+
+        document.body.appendChild(lava);
+
+        setTimeout(() => {
+            lava.classList.add("active");
+        }, 20);
+
+        setTimeout(() => {
+            lava.classList.remove("active");
+
+            setTimeout(() => {
+                lava.remove();
+            }, 1000);
+
+        }, 5000);
+    }
+},
+
+// ============================================================
+// SECRET EVENTS
+// ============================================================
+
+the_number: {
+    name: "THE NUMBER",
+    secret: true,
+
+    run() {
+        setMessage("13");
+
+        const number =
+            spawnEffect(
+                "13",
+                {
+                    size: "8rem",
+                    x: 50,
+                    y: 45,
+                    className: "mysterious-number",
+                    duration: 3500
+                }
+            );
+
+        number.style.transform =
+            "translate(-50%, -50%)";
+    }
+},
+
+question_marks: {
+    name: "???",
+    secret: true,
+
+    run() {
+        setMessage(
+            "you weren't supposed to see this"
+        );
+
+        spawnEffect(
+            "you weren't supposed to see this",
+            {
+                size: "2rem",
+                x: 50,
+                y: 50,
+                className: "secret-message",
+                duration: 4000
+            }
+        );
+    }
+},
+
+null_event: {
+    name: "NULL",
+    secret: true,
+
+    run() {
+        setMessage("NULL");
+
+        const elements =
+            document.querySelectorAll(
+                "#click-count, #event-count, #advancement-count, #unique-count, #button-status, #last-event, #event-streak"
+            );
+
+        const originals = [];
+
+        elements.forEach(element => {
+            originals.push({
+                element,
+                value: element.textContent
+            });
+
+            element.textContent = "NULL";
+        });
+
+        setTimeout(() => {
+            originals.forEach(item => {
+                item.element.textContent =
+                    item.value;
+            });
+        }, 3500);
+    }
+},
+
+last_button: {
+    name: "THE LAST BUTTON",
+    secret: true,
+
+    run() {
+        setMessage(
+            "THERE IS ANOTHER BUTTON."
+        );
+
+        const second =
+            button.cloneNode(true);
+
+        second.removeAttribute("id");
+
+        second.classList.add(
+            "mysterious-button"
+        );
+
+        second.style.position = "fixed";
+        second.style.left = "25%";
+        second.style.top = "50%";
+        second.style.transform =
+            "translate(-50%, -50%)";
+
+        const original =
+            button.getBoundingClientRect();
+
+        button.style.position = "fixed";
+        button.style.left = "75%";
+        button.style.top = "50%";
+        button.style.transform =
+            "translate(-50%, -50%)";
+
+        document.body.appendChild(second);
+
+        const cleanup = () => {
+            second.remove();
+
+            button.style.position = "";
+            button.style.left = "";
+            button.style.top = "";
+            button.style.transform = "";
+        };
+
+        second.addEventListener(
+            "click",
+            cleanup,
+            { once: true }
+        );
+
+        button.addEventListener(
+            "click",
+            cleanup,
+            { once: true }
+        );
+
+        setTimeout(cleanup, 7000);
+    }
+},
+
+button_self_press: {
+    name: "THE BUTTON PRESSES ITSELF",
+    secret: true,
+
+    run() {
+        setMessage("INPUT SOURCE: UNKNOWN.");
+
+        setTimeout(() => {
+            button.animate(
+                [
+                    {
+                        transform: "scale(1)"
+                    },
+                    {
+                        transform: "scale(0.9)"
+                    },
+                    {
+                        transform: "scale(1)"
+                    }
+                ],
+                {
+                    duration: 300,
+                    iterations: 1
+                }
+            );
+
+            // Trigger the normal click system.
+            button.click();
+
+        }, 1200);
+    }
+},
+
+system_zero: {
+    name: "SYSTEM 0",
+    secret: true,
+
+    run() {
+        const labels =
+            document.querySelectorAll(
+                ".brand strong, .brand-text span, .panel-heading span:first-child, footer span"
+            );
+
+        const originals = [];
+
+        labels.forEach(label => {
+            originals.push({
+                element: label,
+                text: label.textContent
+            });
+
+            label.textContent = "SYSTEM 0";
+        });
+
+        setMessage("SYSTEM 0");
+
+        setTimeout(() => {
+
+            labels.forEach(label => {
+                label.textContent =
+                    "SYSTEM 1";
+            });
+
+        }, 1000);
+
+        setTimeout(() => {
+
+            labels.forEach(label => {
+                label.textContent =
+                    "SYSTEM 2";
+            });
+
+        }, 2000);
+
+        setTimeout(() => {
+
+            originals.forEach(item => {
+                item.element.textContent =
+                    item.text;
+            });
+
+            setMessage(
+                "SYSTEM RESTORED."
+            );
+
+        }, 3500);
+    }
+}
+
 };
+
+
+// ==========================================================
+// EVENT FUNCTIONS
+// ==========================================================
+
+
+function startDinoGame() {
+
+    if (document.getElementById("dino-game")) return;
+
+    const gameOverlay = document.createElement("div");
+
+    gameOverlay.id = "dino-game";
+
+    gameOverlay.innerHTML = `
+        <div class="dino-header">
+            <div class="dino-title">DINO RUN</div>
+
+            <div class="dino-score">
+                SCORE: <span id="dino-score">00000</span>
+            </div>
+        </div>
+
+        <div class="dino-world">
+            <div id="dino-player">🦖</div>
+            <div id="dino-ground"></div>
+        </div>
+
+        <div class="dino-message">
+            SPACE / CLICK TO JUMP
+        </div>
+    `;
+
+    document.body.appendChild(gameOverlay);
+
+    const player =
+        gameOverlay.querySelector("#dino-player");
+
+    const world =
+        gameOverlay.querySelector(".dino-world");
+
+    const scoreElement =
+        gameOverlay.querySelector("#dino-score");
+
+    let running = true;
+    let playerY = 0;
+    let velocityY = 0;
+
+    let score = 0;
+    let speed = 7;
+
+    let lastTime = performance.now();
+    let obstacleTimer = 60;
+
+    const obstacles = [];
+
+    function jump() {
+
+        if (!running) {
+            restart();
+            return;
+        }
+
+        if (playerY === 0) {
+            velocityY = 15;
+        }
+    }
+
+    function createObstacle() {
+
+        const cactus =
+            document.createElement("div");
+
+        cactus.className = "dino-cactus";
+        cactus.textContent = "🌵";
+
+        world.appendChild(cactus);
+
+        obstacles.push({
+            element: cactus,
+            x: world.clientWidth + 80
+        });
+    }
+
+    function collision(a, b) {
+
+        const r1 =
+            a.getBoundingClientRect();
+
+        const r2 =
+            b.getBoundingClientRect();
+
+        return !(
+            r1.right < r2.left + 10 ||
+            r1.left + 10 > r2.right ||
+            r1.bottom - 8 < r2.top ||
+            r1.top + 8 > r2.bottom
+        );
+    }
+
+    function endGame() {
+
+        running = false;
+
+        gameOverlay.classList.add(
+            "dino-game-over"
+        );
+
+        gameOverlay.querySelector(
+            ".dino-message"
+        ).innerHTML = `
+            <strong>GAME OVER</strong><br>
+            SCORE: ${Math.floor(score)}<br>
+            PRESS SPACE OR CLICK TO RESTART
+        `;
+    }
+
+    function restart() {
+
+        gameOverlay.remove();
+
+        startDinoGame();
+    }
+
+    function loop(now) {
+
+        if (!running) return;
+
+        const delta =
+            Math.min(
+                (now - lastTime) / 16.67,
+                3
+            );
+
+        lastTime = now;
+
+        // PHYSICS
+
+        velocityY -= 0.8 * delta;
+
+        playerY += velocityY * delta;
+
+        if (playerY <= 0) {
+
+            playerY = 0;
+            velocityY = 0;
+        }
+
+        player.style.transform =
+            `translateY(${-playerY}px)`;
+
+
+        // SCORE
+
+        score += 0.15 * delta;
+
+        scoreElement.textContent =
+            String(Math.floor(score))
+                .padStart(5, "0");
+
+
+        // SPAWN CACTUS
+
+        obstacleTimer -= delta;
+
+        if (obstacleTimer <= 0) {
+
+            createObstacle();
+
+            obstacleTimer =
+                70 + Math.random() * 80;
+        }
+
+
+        // MOVE CACTUSES
+
+        for (
+            let i = obstacles.length - 1;
+            i >= 0;
+            i--
+        ) {
+
+            const obstacle =
+                obstacles[i];
+
+            obstacle.x -= speed * delta;
+
+            obstacle.element.style.transform =
+                `translateX(${
+                    obstacle.x -
+                    world.clientWidth
+                }px)`;
+
+
+            // COLLISION
+
+            if (
+                collision(
+                    player,
+                    obstacle.element
+                )
+            ) {
+
+                endGame();
+                return;
+            }
+
+
+            // REMOVE OLD CACTUS
+
+            if (obstacle.x < -100) {
+
+                obstacle.element.remove();
+
+                obstacles.splice(i, 1);
+            }
+        }
+
+
+        // INCREASE SPEED
+
+        speed += 0.0015 * delta;
+
+        requestAnimationFrame(loop);
+    }
+
+    function keyHandler(event) {
+
+        if (
+            event.code === "Space" ||
+            event.code === "ArrowUp"
+        ) {
+
+            event.preventDefault();
+
+            jump();
+        }
+
+        if (
+            event.code === "Escape"
+        ) {
+
+            cleanup();
+        }
+    }
+
+    function clickHandler(event) {
+
+        // Don't restart/jump if clicking UI elements
+        if (
+            event.target.closest(
+                ".dino-header"
+            )
+        ) return;
+
+        jump();
+    }
+
+    function cleanup() {
+
+        running = false;
+
+        document.removeEventListener(
+            "keydown",
+            keyHandler
+        );
+
+        gameOverlay.remove();
+    }
+
+    document.addEventListener(
+        "keydown",
+        keyHandler
+    );
+
+    gameOverlay.addEventListener(
+        "click",
+        clickHandler
+    );
+
+    requestAnimationFrame(loop);
+}
 
 
 // ==========================================================
