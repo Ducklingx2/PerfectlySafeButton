@@ -151,7 +151,37 @@ const AdvancementData = [
         condition: () => game.giantJellyfish >= 100
     },
 
+    {
+       id: "paleontologist",
+       title: "PALEONTOLOGIST",
+       description: "Find a bone.",
+       icon: "🦴",
+       category: "Nature",
+       condition: () =>
+           game.bonesFound >= 1
+   },
+   
+   {
+       id: "skeleton_constructor",
+       title: "SKELETON CONSTRUCTOR",
+       description: "Find 206 bones.",
+       icon: "🦴",
+       category: "Nature",
+       condition: () =>
+           game.bonesFound >= 206
+   },
 
+   {
+       id: "patience",
+       title: "PATIENCE",
+       description: "Wait for the snail.",
+       icon: "🐌",
+       category: "Nature",
+       condition: () =>
+           game.snailsSeen >= 1
+   },
+
+   
     /* =========================
        STRANGE
        ========================= */
@@ -192,6 +222,35 @@ const AdvancementData = [
         condition: () => game.spins >= 5
     },
 
+    {
+       id: "right_for_once",
+       title: "RIGHT FOR ONCE",
+       description: "Get the weather forecast exactly right.",
+       icon: "🌦️",
+       category: "Strange",
+       condition: () =>
+           game.rightForOnce === true
+   },
+
+   {
+       id: "ghosted",
+       title: "GHOSTED",
+       description: "Answer the unknown caller.",
+       icon: "📞",
+       category: "Strange",
+       condition: () =>
+           game.callsAnswered >= 1
+   },
+
+   {
+       id: "where_is_my_wallet",
+       title: "WHERE IS MY WALLET",
+       description: "Find a coin.",
+       icon: "🪙",
+       category: "Strange",
+       condition: () =>
+           game.coinsFound >= 1
+   },
 
     /* =========================
        WARNINGS
@@ -363,6 +422,16 @@ const AdvancementData = [
         condition: () => game.leave >= 1
     },
 
+    {
+       id: "responsible_citizen",
+       title: "RESPONSIBLE CITIZEN",
+       description: "Pay the button tax.",
+       icon: "💸",
+       category: "System",
+       condition: () =>
+           game.taxesPaid >= 1
+   },
+
 
     /* =========================
        SECRETS
@@ -431,10 +500,54 @@ const AdvancementData = [
         condition: () => game.leave >= 5
     },
 
+    {
+       id: "nooo_my_taxes",
+       title: "NOOO MY TAXES",
+       description: "Evade the button tax.",
+       icon: "💸",
+       category: "Secrets",
+       secret: true,
+       condition: () =>
+           game.taxesEvaded >= 1
+   },
+
+   {
+       id: "sock_pair",
+       title: "PAIR COMPLETE",
+       description: "Find both the left and right sock.",
+       icon: "🧦",
+       category: "Secrets",
+       secret: true,
+       condition: () =>
+           game.rightSock >= 1 &&
+           game.leftSock >= 1
+   },
+
+   {
+       id: "left_sock",
+       title: "THE OTHER ONE",
+       description: "Find the incredibly rare left sock.",
+       icon: "🧦",
+       category: "Secrets",
+       secret: true,
+       condition: () =>
+           game.leftSock >= 1
+   },
+
 
     /* =========================
        COMPLETION
        ========================= */
+
+   {
+       id: "language_barrier",
+       title: "OVERCOME LANGUAGE BARRIER",
+       description: "Experience every language incident.",
+       icon: "🌍",
+       category: "Completion",
+       condition: () =>
+           game.languagesSeen.length >= 8
+   }
 
     {
         id: "everything",
