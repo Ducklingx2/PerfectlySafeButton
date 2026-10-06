@@ -1066,6 +1066,95 @@ footer {
 
 
 /* =========================================================
+   SNAIL
+========================================================= */
+
+.snail-event {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    animation: eventFadeIn 0.25s ease;
+}
+
+.snail-event-card {
+    width: min(700px, 90vw);
+    padding: 32px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 24px;
+    background: rgba(10, 18, 14, 0.94);
+    box-shadow:
+        0 30px 100px rgba(0,0,0,0.55),
+        inset 0 1px rgba(255,255,255,0.08);
+    text-align: center;
+}
+
+.snail-event-label {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    opacity: 0.55;
+    margin-bottom: 8px;
+}
+
+.snail-event-title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.snail-stage {
+    position: relative;
+    height: 180px;
+    margin: 25px 0 10px;
+    overflow: hidden;
+    border-radius: 16px;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.04) 1px, transparent 1px),
+        rgba(0,0,0,0.25);
+    background-size: 18px 18px;
+}
+
+.snail {
+    position: absolute;
+    left: 0;
+    bottom: 35px;
+    font-size: 5rem;
+    line-height: 1;
+    z-index: 2;
+}
+
+.snail-ground {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    bottom: 28px;
+    height: 3px;
+    background: rgba(255,255,255,0.2);
+}
+
+.snail-status {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    opacity: 0.7;
+}
+
+@keyframes eventFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
    LA PEACE
 ========================================================= */
 
@@ -2430,4 +2519,13 @@ footer {
         right: 12px;
         width: calc(100vw - 24px);
     }
+}
+
+/* Button Lock */
+
+.event-locked {
+    pointer-events: none !important;
+    opacity: 0.55;
+    filter: grayscale(0.35);
+    cursor: not-allowed !important;
 }
