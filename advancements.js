@@ -111,6 +111,37 @@ const AdvancementData = [
     },
 
 
+    {
+          id: "paleontologist",
+          name: "PALEONTOLOGIST",
+          description: "Find a bone.",
+          icon: "🦴",
+          category: "Nature",
+          condition: () =>
+              game.bonesFound >= 1
+      },
+      
+      {
+          id: "skeleton_constructor",
+          name: "SKELETON CONSTRUCTOR",
+          description: "Find 206 bones.",
+          icon: "🦴",
+          category: "Nature",
+          condition: () =>
+              game.bonesFound >= 206
+      },
+   
+      {
+          id: "patience",
+          name: "PATIENCE",
+          description: "Wait for the snail.",
+          icon: "🐌",
+          category: "Nature",
+          condition: () =>
+              game.snailsSeen >= 1
+      },
+
+   
     /* =========================
        OCEAN
        ========================= */
@@ -151,37 +182,7 @@ const AdvancementData = [
         condition: () => game.giantJellyfish >= 100
     },
 
-    {
-       id: "paleontologist",
-       title: "PALEONTOLOGIST",
-       description: "Find a bone.",
-       icon: "🦴",
-       category: "Nature",
-       condition: () =>
-           game.bonesFound >= 1
-   },
-   
-   {
-       id: "skeleton_constructor",
-       title: "SKELETON CONSTRUCTOR",
-       description: "Find 206 bones.",
-       icon: "🦴",
-       category: "Nature",
-       condition: () =>
-           game.bonesFound >= 206
-   },
-
-   {
-       id: "patience",
-       title: "PATIENCE",
-       description: "Wait for the snail.",
-       icon: "🐌",
-       category: "Nature",
-       condition: () =>
-           game.snailsSeen >= 1
-   },
-
-   
+    
     /* =========================
        STRANGE
        ========================= */
@@ -224,7 +225,7 @@ const AdvancementData = [
 
     {
        id: "right_for_once",
-       title: "RIGHT FOR ONCE",
+       name: "RIGHT FOR ONCE",
        description: "Get the weather forecast exactly right.",
        icon: "🌦️",
        category: "Strange",
@@ -234,7 +235,7 @@ const AdvancementData = [
 
    {
        id: "ghosted",
-       title: "GHOSTED",
+       name: "GHOSTED",
        description: "Answer the unknown caller.",
        icon: "📞",
        category: "Strange",
@@ -244,7 +245,7 @@ const AdvancementData = [
 
    {
        id: "where_is_my_wallet",
-       title: "WHERE IS MY WALLET",
+       name: "WHERE IS MY WALLET",
        description: "Find a coin.",
        icon: "🪙",
        category: "Strange",
@@ -424,7 +425,7 @@ const AdvancementData = [
 
     {
        id: "responsible_citizen",
-       title: "RESPONSIBLE CITIZEN",
+       name: "RESPONSIBLE CITIZEN",
        description: "Pay the button tax.",
        icon: "💸",
        category: "System",
@@ -513,7 +514,7 @@ const AdvancementData = [
 
    {
        id: "sock_pair",
-       title: "PAIR COMPLETE",
+       name: "PAIR COMPLETE",
        description: "Find both the left and right sock.",
        icon: "🧦",
        category: "Secrets",
@@ -525,7 +526,7 @@ const AdvancementData = [
 
    {
        id: "left_sock",
-       title: "THE OTHER ONE",
+       name: "THE OTHER ONE",
        description: "Find the incredibly rare left sock.",
        icon: "🧦",
        category: "Secrets",
@@ -541,7 +542,7 @@ const AdvancementData = [
 
    {
        id: "language_barrier",
-       title: "OVERCOME LANGUAGE BARRIER",
+       name: "OVERCOME LANGUAGE BARRIER",
        description: "Experience every language incident.",
        icon: "🌍",
        category: "Completion",
