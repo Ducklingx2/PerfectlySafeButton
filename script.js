@@ -1551,12 +1551,8 @@ const events = {
 
         }
 
-    }
+     },
 
-
-// ============================================================
-// NEW CHAOS EVENTS
-// ============================================================
 
 button_moved: {
     name: "BUTTON HAS MOVED",
@@ -2419,6 +2415,1185 @@ button_self_press: {
         }, 1200);
     }
 },
+
+
+    traffic_light: {
+    name: "TRAFFIC LIGHT",
+
+    run() {
+        setMessage("TRAFFIC CONTROL HAS ARRIVED.");
+
+        const light = document.createElement("div");
+
+        light.className = "traffic-light-event";
+
+        light.innerHTML = `
+            <div class="traffic-light-box">
+                <div class="traffic-light red"></div>
+                <div class="traffic-light yellow"></div>
+                <div class="traffic-light green"></div>
+            </div>
+            <div class="traffic-light-text">WAIT.</div>
+        `;
+
+        document.body.appendChild(light);
+
+        const text =
+            light.querySelector(".traffic-light-text");
+
+        const red =
+            light.querySelector(".red");
+
+        const yellow =
+            light.querySelector(".yellow");
+
+        const green =
+            light.querySelector(".green");
+
+        setTimeout(() => {
+            red.classList.add("active");
+            text.textContent = "STOP.";
+        }, 200);
+
+        setTimeout(() => {
+            red.classList.remove("active");
+            yellow.classList.add("active");
+            text.textContent = "GET READY.";
+        }, 1800);
+
+        setTimeout(() => {
+            yellow.classList.remove("active");
+            green.classList.add("active");
+            text.textContent = "YOU MAY NOW PRESS THE BUTTON.";
+        }, 3300);
+
+        setTimeout(() => {
+            light.remove();
+        }, 6500);
+    }
+},
+
+snail: {
+    name: "SNAIL",
+
+    run() {
+        game.snailsSeen++;
+
+        setMessage("A SNAIL HAS ARRIVED.");
+
+        const snail =
+            document.createElement("div");
+
+        snail.className = "random-snail";
+        snail.textContent = "🐌";
+
+        snail.style.left = "-8vw";
+        snail.style.top =
+            `${25 + Math.random() * 50}vh`;
+
+        document.body.appendChild(snail);
+
+        const distance =
+            window.innerWidth + 200;
+
+        snail.animate(
+            [
+                {
+                    transform: "translateX(0)"
+                },
+                {
+                    transform:
+                        `translateX(${distance}px)`
+                }
+            ],
+            {
+                duration: 12000,
+                easing: "linear"
+            }
+        );
+
+        setTimeout(() => {
+            snail.remove();
+        }, 12200);
+    }
+},
+
+potato: {
+    name: "POTATO",
+
+    run() {
+        setMessage("POTATO DETECTED.");
+
+        const potato =
+            spawnEffect("🥔", {
+                size: "6rem",
+                x: 50,
+                y: 45,
+                className: "potato-event",
+                duration: 4500
+            });
+
+        potato.style.transform =
+            "translate(-50%, -50%)";
+
+        setTimeout(() => {
+            setMessage("CLASSIFICATION: POTATO.");
+        }, 700);
+    }
+},
+
+duck_review: {
+    name: "DUCK REVIEW",
+
+    run() {
+
+        const ratings = [
+            "⭐⭐⭐⭐⭐ — Surprisingly good.",
+            "⭐⭐⭐⭐☆ — Acceptable.",
+            "⭐⭐⭐☆☆ — Could be better.",
+            "⭐⭐☆☆☆ — Concerning.",
+            "⭐☆☆☆☆ — Duck is disappointed."
+        ];
+
+        const review =
+            ratings[
+                Math.floor(
+                    Math.random() * ratings.length
+                )
+            ];
+
+        setMessage("DUCK REVIEW IN PROGRESS.");
+
+        const duck =
+            document.createElement("div");
+
+        duck.className = "duck-review";
+
+        duck.innerHTML = `
+            <div class="duck-review-icon">🦆</div>
+            <div class="duck-review-title">
+                DUCK REVIEW
+            </div>
+            <div class="duck-review-rating">
+                ${review}
+            </div>
+        `;
+
+        document.body.appendChild(duck);
+
+        setTimeout(() => {
+            duck.remove();
+        }, 4500);
+    }
+},
+
+unknown_caller: {
+    name: "UNKNOWN CALLER",
+
+    run() {
+
+        setMessage("INCOMING CALL.");
+
+        const caller =
+            document.createElement("div");
+
+        caller.className =
+            "unknown-caller";
+
+        caller.innerHTML = `
+            <div class="caller-box">
+
+                <div class="caller-icon">
+                    ☎
+                </div>
+
+                <div class="caller-title">
+                    UNKNOWN CALLER
+                </div>
+
+                <div class="caller-number">
+                    +??? ??? ????
+                </div>
+
+                <div class="caller-actions">
+
+                    <button
+                        class="caller-answer"
+                        type="button"
+                    >
+                        ANSWER
+                    </button>
+
+                    <button
+                        class="caller-decline"
+                        type="button"
+                    >
+                        DECLINE
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        document.body.appendChild(caller);
+
+        const answer =
+            caller.querySelector(".caller-answer");
+
+        const decline =
+            caller.querySelector(".caller-decline");
+
+        function endCall(answered) {
+
+            if (answered) {
+                game.callsAnswered++;
+
+                setMessage("CALL CONNECTED.");
+
+                caller.innerHTML = `
+                    <div class="caller-box">
+                        <div class="caller-icon">☎</div>
+                        <div class="caller-title">
+                            CONNECTED
+                        </div>
+                        <div class="caller-number">
+                            ...
+                        </div>
+                    </div>
+                `;
+
+                setTimeout(() => {
+
+                    caller.innerHTML = `
+                        <div class="caller-box">
+                            <div class="caller-title">
+                                CALL ENDED
+                            </div>
+
+                            <div class="caller-number">
+                                ...
+                            </div>
+
+                            <div class="ghosted-text">
+                                YOU HAVE BEEN GHOSTED.
+                            </div>
+                        </div>
+                    `;
+
+                    setMessage(
+                        "YOU HAVE BEEN GHOSTED."
+                    );
+
+                    setTimeout(() => {
+                        caller.remove();
+                    }, 2200);
+
+                }, 1500);
+
+            } else {
+
+                setMessage(
+                    "CALL DECLINED."
+                );
+
+                caller.remove();
+            }
+        }
+
+        answer.addEventListener(
+            "click",
+            () => endCall(true),
+            { once: true }
+        );
+
+        decline.addEventListener(
+            "click",
+            () => endCall(false),
+            { once: true }
+        );
+
+        setTimeout(() => {
+
+            if (document.body.contains(caller)) {
+                caller.remove();
+                setMessage(
+                    "THE CALLER GAVE UP."
+                );
+            }
+
+        }, 9000);
+    }
+},
+
+juice_box: {
+    name: "JUICE BOX",
+
+    run() {
+
+        setMessage(
+            "JUICE HAS BEEN DEPLOYED."
+        );
+
+        const juice =
+            spawnEffect("🧃", {
+                size: "6rem",
+                x: 50,
+                y: -10,
+                className: "juice-event"
+            });
+
+        juice.animate(
+            [
+                {
+                    transform:
+                        "translate(-50%, -100px) rotate(-15deg)"
+                },
+                {
+                    transform:
+                        "translate(-50%, 45vh) rotate(8deg)"
+                },
+                {
+                    transform:
+                        "translate(-50%, 38vh) rotate(-4deg)"
+                }
+            ],
+            {
+                duration: 1200,
+                easing: "cubic-bezier(.2,.8,.2,1)"
+            }
+        );
+
+        juice.style.transform =
+            "translate(-50%, 38vh)";
+
+        setTimeout(() => {
+            juice.remove();
+        }, 5000);
+    }
+},
+
+one_drop: {
+    name: "ONE DROP",
+
+    run() {
+
+        setMessage("ONE DROP.");
+
+        const drop =
+            document.createElement("div");
+
+        drop.className = "single-drop";
+        drop.textContent = "💧";
+
+        drop.style.left =
+            `${20 + Math.random() * 60}vw`;
+
+        document.body.appendChild(drop);
+
+        drop.animate(
+            [
+                {
+                    transform:
+                        "translateY(-100px)",
+                    opacity: 0
+                },
+                {
+                    transform:
+                        "translateY(0)",
+                    opacity: 1
+                }
+            ],
+            {
+                duration: 1600,
+                easing: "ease-in"
+            }
+        );
+
+        setTimeout(() => {
+            drop.remove();
+        }, 1800);
+    }
+},
+
+brain: {
+    name: "BRAIN",
+
+    run() {
+
+        setMessage(
+            "PROCESSING... ERROR: THOUGHT NOT FOUND"
+        );
+
+        const brain =
+            spawnEffect("🧠", {
+                size: "7rem",
+                x: 50,
+                y: 45,
+                className: "brain-event",
+                duration: 4000
+            });
+
+        brain.style.transform =
+            "translate(-50%, -50%)";
+
+        setTimeout(() => {
+
+            spawnEffect(
+                "ERROR: THOUGHT NOT FOUND",
+                {
+                    size: "1.5rem",
+                    x: 50,
+                    y: 60,
+                    className: "brain-error",
+                    duration: 2500
+                }
+            );
+
+        }, 1000);
+    }
+},
+
+egg: {
+    name: "EGG",
+
+    run() {
+
+        setMessage("EGG DETECTED.");
+
+        let stage = 0;
+
+        const egg =
+            document.createElement("div");
+
+        egg.className = "egg-event";
+        egg.textContent = "🥚";
+
+        document.body.appendChild(egg);
+
+        const cycle = () => {
+
+            stage++;
+
+            if (stage === 1) {
+                egg.textContent = "🥚";
+            }
+
+            if (stage === 2) {
+                egg.textContent = "🥚";
+                setMessage("CRACK.");
+            }
+
+            if (stage === 3) {
+                egg.textContent = "🥚";
+                setMessage(
+                    "THERE IS ANOTHER EGG."
+                );
+            }
+
+            if (stage === 4) {
+                egg.textContent = "🥚";
+                setMessage(
+                    "THERE IS ANOTHER EGG."
+                );
+            }
+
+            if (stage >= 5) {
+
+                egg.textContent = "∅";
+
+                setTimeout(() => {
+                    egg.remove();
+                }, 700);
+
+                return;
+            }
+
+            setTimeout(cycle, 900);
+        };
+
+        cycle();
+    }
+},
+
+coin: {
+    name: "COIN",
+
+    run() {
+
+        game.coinsFound++;
+
+        setMessage("+1 COIN");
+
+        const coin =
+            spawnEffect("🪙", {
+                size: "5rem",
+                x: 50,
+                y: 45,
+                className: "coin-event",
+                duration: 3500
+            });
+
+        coin.style.transform =
+            "translate(-50%, -50%)";
+
+        setTimeout(() => {
+            setMessage(
+                "WHERE IS MY WALLET"
+            );
+        }, 1200);
+    }
+},
+
+rock: {
+    name: "ROCK",
+
+    run() {
+
+        setMessage("Rock.");
+
+        const rock =
+            spawnEffect("🪨", {
+                size: "5rem",
+                x: 50,
+                y: 50,
+                className: "rock-event",
+                duration: 4500
+            });
+
+        rock.style.transform =
+            "translate(-50%, -50%)";
+    }
+},
+
+bone: {
+    name: "BONE",
+
+    run() {
+
+        game.bonesFound++;
+
+        setMessage(
+            `BONE FOUND. TOTAL: ${game.bonesFound}`
+        );
+
+        const bone =
+            spawnEffect("🦴", {
+                size: "5rem",
+                x: 50,
+                y: 45,
+                className: "bone-event",
+                duration: 4000
+            });
+
+        bone.style.transform =
+            "translate(-50%, -50%)";
+
+        setTimeout(() => {
+
+            setMessage(
+                "ARCHAEOLOGICAL FIND."
+            );
+
+        }, 900);
+    }
+},
+
+right_sock: {
+    name: "RIGHT SOCK",
+
+    run() {
+
+        game.rightSock++;
+
+        setMessage(
+            "RIGHT SOCK ACQUIRED."
+        );
+
+        const sock =
+            spawnEffect("🧦", {
+                size: "5rem",
+                x: 50,
+                y: 45,
+                className: "sock-event",
+                duration: 4500
+            });
+
+        sock.style.transform =
+            "translate(-50%, -50%)";
+    }
+},
+
+left_sock: {
+    name: "LEFT SOCK",
+
+    run() {
+
+        game.leftSock++;
+
+        setMessage(
+            "LEFT SOCK ACQUIRED."
+        );
+
+        const sock =
+            spawnEffect("🧦", {
+                size: "6rem",
+                x: 50,
+                y: 45,
+                className: "rare-sock-event",
+                duration: 5000
+            });
+
+        sock.style.transform =
+            "translate(-50%, -50%)";
+
+        for (let i = 0; i < 12; i++) {
+
+            spawnEffect(
+                "✦",
+                {
+                    size: "1rem",
+                    x:
+                        35 + Math.random() * 30,
+                    y:
+                        30 + Math.random() * 35,
+                    className: "sock-sparkle",
+                    duration: 2200
+                }
+            );
+        }
+    }
+},
+
+hi_bye: {
+    name: "HI / BYE",
+
+    run() {
+
+        setMessage("hi.");
+
+        const text =
+            spawnEffect("hi.", {
+                size: "5rem",
+                x: 50,
+                y: 45,
+                className: "hi-bye-event"
+            });
+
+        text.style.transform =
+            "translate(-50%, -50%)";
+
+        setTimeout(() => {
+
+            text.textContent = "bye.";
+
+            setMessage("bye.");
+
+        }, 1800);
+
+        setTimeout(() => {
+            text.remove();
+        }, 3500);
+    }
+},
+
+windows_95: {
+    name: "WINDOWS 95 ERROR",
+
+    run() {
+
+        setMessage(
+            "WINDOWS 95 HAS ENCOUNTERED A BUTTON."
+        );
+
+        const error =
+            document.createElement("div");
+
+        error.className =
+            "windows95-error";
+
+        error.innerHTML = `
+            <div class="win95-window">
+
+                <div class="win95-titlebar">
+                    <span>
+                        BUTTON.EXE
+                    </span>
+
+                    <button
+                        type="button"
+                        class="win95-x"
+                    >
+                        ×
+                    </button>
+                </div>
+
+                <div class="win95-body">
+
+                    <div class="win95-icon">
+                        ⚠
+                    </div>
+
+                    <div>
+                        <strong>
+                            BUTTON.EXE has caused
+                            an invalid operation.
+                        </strong>
+
+                        <p>
+                            The button will now
+                            continue existing.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="win95-actions">
+                    <button type="button">
+                        OK
+                    </button>
+                </div>
+
+            </div>
+        `;
+
+        document.body.appendChild(error);
+
+        const action =
+            error.querySelector(
+                ".win95-actions button"
+            );
+
+        let presses = 0;
+
+        action.addEventListener(
+            "click",
+            () => {
+
+                presses++;
+
+                if (presses < 4) {
+
+                    const box =
+                        document.createElement(
+                            "div"
+                        );
+
+                    box.className =
+                        "win95-mini-error";
+
+                    box.innerHTML = `
+                        <strong>
+                            ERROR
+                        </strong>
+
+                        <span>
+                            The previous
+                            OK button was
+                            insufficient.
+                        </span>
+
+                        <button>
+                            OK
+                        </button>
+                    `;
+
+                    document.body.appendChild(box);
+
+                    box.querySelector(
+                        "button"
+                    ).onclick = () => {
+                        box.remove();
+                    };
+
+                } else {
+
+                    error.remove();
+
+                    setMessage(
+                        "fine."
+                    );
+                }
+            }
+        );
+
+        error.querySelector(
+            ".win95-x"
+        ).onclick = () => {
+            error.remove();
+        };
+    }
+},
+
+button_tax: {
+    name: "BUTTON TAX",
+
+    run() {
+
+        const tax =
+            Math.min(
+                100,
+                Math.max(
+                    1,
+                    Math.floor(
+                        game.clicks * 0.01
+                    )
+                )
+            );
+
+        setMessage(
+            `BUTTON TAX: ${tax} CLICKS`
+        );
+
+        const taxBox =
+            document.createElement("div");
+
+        taxBox.className =
+            "tax-event";
+
+        taxBox.innerHTML = `
+            <div class="tax-box">
+
+                <div class="tax-title">
+                    BUTTON TAX
+                </div>
+
+                <div class="tax-amount">
+                    ${tax} CLICKS DUE
+                </div>
+
+                <div class="tax-actions">
+
+                    <button
+                        class="tax-pay"
+                        type="button"
+                    >
+                        PAY TAX
+                    </button>
+
+                    <button
+                        class="tax-evade"
+                        type="button"
+                    >
+                        EVADE TAX
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        document.body.appendChild(taxBox);
+
+        const pay =
+            taxBox.querySelector(
+                ".tax-pay"
+            );
+
+        const evade =
+            taxBox.querySelector(
+                ".tax-evade"
+            );
+
+        let finished = false;
+
+        function close() {
+            if (finished) return;
+            finished = true;
+            taxBox.remove();
+        }
+
+        pay.onclick = () => {
+
+            if (finished) return;
+
+            game.clicks =
+                Math.max(
+                    0,
+                    game.clicks - tax
+                );
+
+            game.taxesPaid++;
+
+            close();
+
+            setMessage(
+                `TAX PAID: ${tax} CLICKS`
+            );
+
+            if (
+                typeof window.Advancements
+                !== "undefined"
+            ) {
+                window.Advancements.check();
+            }
+        };
+
+        evade.onclick = () => {
+
+            if (finished) return;
+
+            game.taxesEvaded++;
+
+            close();
+
+            setMessage(
+                "TAX EVASION DETECTED."
+            );
+
+            if (
+                typeof window.Advancements
+                !== "undefined"
+            ) {
+                window.Advancements.check();
+            }
+        };
+    }
+},
+
+weather_report: {
+    name: "WEATHER REPORT",
+
+    run() {
+
+        const forecasts = [
+            {
+                event: "rain",
+                text: "RAIN",
+                temperature: "24°C"
+            },
+            {
+                event: "snowfall",
+                text: "SNOW",
+                temperature: "-3°C"
+            },
+            {
+                event: "underwater",
+                text: "WATER",
+                temperature: "19°C"
+            }
+        ];
+
+        const forecast =
+            forecasts[
+                Math.floor(
+                    Math.random() *
+                    forecasts.length
+                )
+            ];
+
+        game.weatherForecast =
+            forecast.event;
+
+        setMessage(
+            `FORECAST: ${forecast.text}`
+        );
+
+        const confidence =
+            Math.floor(
+                10 + Math.random() * 81
+            );
+
+        const report =
+            document.createElement("div");
+
+        report.className =
+            "weather-report";
+
+        report.innerHTML = `
+            <div class="weather-box">
+
+                <div class="weather-title">
+                    WEATHER REPORT
+                </div>
+
+                <div class="weather-condition">
+                    ${forecast.text}
+                </div>
+
+                <div class="weather-temperature">
+                    ${forecast.temperature}
+                </div>
+
+                <div class="weather-confidence">
+                    FORECAST CONFIDENCE:
+                    ${confidence}%
+                </div>
+
+            </div>
+        `;
+
+        document.body.appendChild(report);
+
+        setTimeout(() => {
+            report.remove();
+        }, 4500);
+    }
+},
+
+language_incident: {
+    name: "LANGUAGE INCIDENT",
+
+    run() {
+
+        const languages = {
+
+            japanese: {
+                name: "JAPANESE",
+                button: "押さないで",
+                title: "完全に安全なボタン",
+                subtitle: "すべて順調です。",
+                message: "本当に。"
+            },
+
+            french: {
+                name: "FRENCH",
+                button: "NE PAS APPUYER",
+                title: "BOUTON PARFAITEMENT SÛR",
+                subtitle: "Tout est sous contrôle.",
+                message: "Vraiment."
+            },
+
+            german: {
+                name: "GERMAN",
+                button: "NICHT DRÜCKEN",
+                title: "VÖLLIG SICHERER KNOPF",
+                subtitle: "Alles ist unter Kontrolle.",
+                message: "Wirklich."
+            },
+
+            spanish: {
+                name: "SPANISH",
+                button: "NO PULSAR",
+                title: "BOTÓN PERFECTAMENTE SEGURO",
+                subtitle: "Todo está bajo control.",
+                message: "De verdad."
+            },
+
+            italian: {
+                name: "ITALIAN",
+                button: "NON PREMERE",
+                title: "PULSANTE PERFETTAMENTE SICURO",
+                subtitle: "Tutto è sotto controllo.",
+                message: "Davvero."
+            },
+
+            korean: {
+                name: "KOREAN",
+                button: "누르지 마세요",
+                title: "완전히 안전한 버튼",
+                subtitle: "모든 것이 통제되고 있습니다.",
+                message: "정말로."
+            },
+
+            russian: {
+                name: "RUSSIAN",
+                button: "НЕ НАЖИМАТЬ",
+                title: "СОВЕРШЕННО БЕЗОПАСНАЯ КНОПКА",
+                subtitle: "Все под контролем.",
+                message: "Правда."
+            },
+
+            portuguese: {
+                name: "PORTUGUESE",
+                button: "NÃO PRESSIONE",
+                title: "BOTÃO PERFEITAMENTE SEGURO",
+                subtitle: "Tudo está sob controle.",
+                message: "Sério."
+            }
+        };
+
+        const keys =
+            Object.keys(languages);
+
+        const unseen =
+            keys.filter(
+                key =>
+                    !game.languagesSeen.includes(key)
+            );
+
+        const pool =
+            unseen.length > 0
+                ? unseen
+                : keys;
+
+        const key =
+            pool[
+                Math.floor(
+                    Math.random() *
+                    pool.length
+                )
+            ];
+
+        const language =
+            languages[key];
+
+        if (
+            !game.languagesSeen.includes(key)
+        ) {
+            game.languagesSeen.push(key);
+        }
+
+        setMessage(
+            `LANGUAGE INCIDENT: ${language.name}`
+        );
+
+        const title =
+            document.querySelector("#page-title");
+
+        const subtitle =
+            document.querySelector(".subtitle");
+
+        const buttonText =
+            button.querySelector("span:last-child");
+
+        const original = {
+            title: title?.textContent,
+            subtitle: subtitle?.textContent,
+            button: buttonText?.textContent
+        };
+
+        if (title)
+            title.textContent =
+                language.title;
+
+        if (subtitle)
+            subtitle.textContent =
+                language.subtitle;
+
+        if (buttonText)
+            buttonText.textContent =
+                language.button;
+
+        setTimeout(() => {
+
+            if (title)
+                title.textContent =
+                    original.title;
+
+            if (subtitle)
+                subtitle.textContent =
+                    original.subtitle;
+
+            if (buttonText)
+                buttonText.textContent =
+                    original.button;
+
+            setMessage(
+                "LANGUAGE RESTORED."
+            );
+
+            if (
+                typeof window.Advancements
+                !== "undefined"
+            ) {
+                window.Advancements.check();
+            }
+
+        }, 6000);
+    }
+},
+    
 
 system_zero: {
     name: "SYSTEM 0",
