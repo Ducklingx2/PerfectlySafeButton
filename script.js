@@ -2576,42 +2576,90 @@ duck_review: {
 
     run() {
 
+        setMessage("DUCK REVIEW IN PROGRESS.");
+
         const ratings = [
-            "⭐⭐⭐⭐⭐ — Surprisingly good.",
-            "⭐⭐⭐⭐☆ — Acceptable.",
-            "⭐⭐⭐☆☆ — Could be better.",
-            "⭐⭐☆☆☆ — Concerning.",
-            "⭐☆☆☆☆ — Duck is disappointed."
+            {
+                stars: "★★★★★",
+                text: "Surprisingly good."
+            },
+            {
+                stars: "★★★★☆",
+                text: "Acceptable."
+            },
+            {
+                stars: "★★★☆☆",
+                text: "Could be better."
+            },
+            {
+                stars: "★★☆☆☆",
+                text: "Concerning."
+            },
+            {
+                stars: "★☆☆☆☆",
+                text: "Duck is disappointed."
+            }
         ];
 
         const review =
-            ratings[
-                Math.floor(
-                    Math.random() * ratings.length
-                )
-            ];
+            ratings[Math.floor(Math.random() * ratings.length)];
 
-        setMessage("DUCK REVIEW IN PROGRESS.");
+        const event = document.createElement("div");
 
-        const duck =
-            document.createElement("div");
+        event.className = "duck-review";
 
-        duck.className = "duck-review";
+        event.innerHTML = `
+            <div class="duck-review-window">
 
-        duck.innerHTML = `
-            <div class="duck-review-icon">🦆</div>
-            <div class="duck-review-title">
-                DUCK REVIEW
-            </div>
-            <div class="duck-review-rating">
-                ${review}
+                <div class="duck-review-header">
+                    <span>DUCK REVIEW</span>
+                    <span>● LIVE</span>
+                </div>
+
+                <div class="duck-review-body">
+
+                    <div class="duck-review-duck">
+                        🦆
+                    </div>
+
+                    <div class="duck-review-info">
+
+                        <div class="duck-review-label">
+                            OFFICIAL BUTTON EVALUATION
+                        </div>
+
+                        <div class="duck-review-score">
+                            ${review.stars}
+                        </div>
+
+                        <div class="duck-review-text">
+                            "${review.text}"
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="duck-review-footer">
+                    REVIEWER: DUCK
+                </div>
+
             </div>
         `;
 
-        document.body.appendChild(duck);
+        document.body.appendChild(event);
 
         setTimeout(() => {
-            duck.remove();
+            event.classList.add("duck-review-visible");
+        }, 20);
+
+        setTimeout(() => {
+            event.classList.remove("duck-review-visible");
+
+            setTimeout(() => {
+                event.remove();
+            }, 300);
+
         }, 4500);
     }
 },
@@ -2620,43 +2668,51 @@ unknown_caller: {
     name: "UNKNOWN CALLER",
 
     run() {
+        lockButton();
 
         setMessage("INCOMING CALL.");
 
-        const caller =
-            document.createElement("div");
-
-        caller.className =
-            "unknown-caller";
+        const caller = document.createElement("div");
+        caller.className = "unknown-caller";
 
         caller.innerHTML = `
-            <div class="caller-box">
+            <div class="phone-call">
 
-                <div class="caller-icon">
+                <div class="phone-status">
+                    INCOMING CALL
+                </div>
+
+                <div class="phone-icon">
                     ☎
                 </div>
 
-                <div class="caller-title">
+                <div class="phone-title">
                     UNKNOWN CALLER
                 </div>
 
-                <div class="caller-number">
+                <div class="phone-number">
                     +??? ??? ????
                 </div>
 
-                <div class="caller-actions">
+                <div class="phone-ringing">
+                    RINGING...
+                </div>
+
+                <div class="phone-actions">
 
                     <button
-                        class="caller-answer"
+                        class="phone-answer"
                         type="button"
                     >
+                        <span>☎</span>
                         ANSWER
                     </button>
 
                     <button
-                        class="caller-decline"
+                        class="phone-decline"
                         type="button"
                     >
+                        <span>✕</span>
                         DECLINE
                     </button>
 
@@ -2667,94 +2723,128 @@ unknown_caller: {
 
         document.body.appendChild(caller);
 
-        const answer =
-            caller.querySelector(".caller-answer");
+        const phone = caller.querySelector(".phone-call");
+        const answer = caller.querySelector(".phone-answer");
+        const decline = caller.querySelector(".phone-decline");
 
-        const decline =
-            caller.querySelector(".caller-decline");
+        function closeCall() {
+            caller.classList.add("call-ending");
 
-        function endCall(answered) {
+            setTimeout(() => {
+                caller.remove();
+                unlockButton();
+            }, 300);
+        }
 
-            if (answered) {
-                game.callsAnswered++;
+        answer.addEventListener("click", () => {
 
-                setMessage("CALL CONNECTED.");
+            game.callsAnswered++;
 
-                caller.innerHTML = `
-                    <div class="caller-box">
-                        <div class="caller-icon">☎</div>
-                        <div class="caller-title">
-                            CONNECTED
-                        </div>
-                        <div class="caller-number">
-                            ...
-                        </div>
+            phone.innerHTML = `
+                <div class="phone-status">
+                    CONNECTED
+                </div>
+
+                <div class="phone-icon phone-connected">
+                    ☎
+                </div>
+
+                <div class="phone-title">
+                    UNKNOWN CALLER
+                </div>
+
+                <div class="phone-number">
+                    +??? ??? ????
+                </div>
+
+                <div class="phone-ringing">
+                    ...
+                </div>
+            `;
+
+            setMessage("CALL CONNECTED.");
+
+            setTimeout(() => {
+
+                phone.innerHTML = `
+                    <div class="phone-status">
+                        CALL ENDED
+                    </div>
+
+                    <div class="phone-icon">
+                        ☎
+                    </div>
+
+                    <div class="phone-title">
+                        UNKNOWN CALLER
+                    </div>
+
+                    <div class="ghosted-message">
+                        YOU HAVE BEEN GHOSTED.
                     </div>
                 `;
 
-                setTimeout(() => {
+                setMessage("YOU HAVE BEEN GHOSTED.");
 
-                    caller.innerHTML = `
-                        <div class="caller-box">
-                            <div class="caller-title">
-                                CALL ENDED
-                            </div>
+                if (typeof window.Advancements !== "undefined") {
+                    window.Advancements.check();
+                }
 
-                            <div class="caller-number">
-                                ...
-                            </div>
+                setTimeout(closeCall, 2200);
 
-                            <div class="ghosted-text">
-                                YOU HAVE BEEN GHOSTED.
-                            </div>
-                        </div>
-                    `;
+            }, 1800);
+        });
 
-                    setMessage(
-                        "YOU HAVE BEEN GHOSTED."
-                    );
+        decline.addEventListener("click", () => {
 
-                    setTimeout(() => {
-                        caller.remove();
-                    }, 2200);
+            setMessage("CALL DECLINED.");
 
-                }, 1500);
+            phone.innerHTML = `
+                <div class="phone-status">
+                    CALL DECLINED
+                </div>
 
-            } else {
+                <div class="phone-icon">
+                    ✕
+                </div>
 
-                setMessage(
-                    "CALL DECLINED."
-                );
+                <div class="phone-title">
+                    UNKNOWN CALLER
+                </div>
+            `;
 
-                caller.remove();
-            }
-        }
-
-        answer.addEventListener(
-            "click",
-            () => endCall(true),
-            { once: true }
-        );
-
-        decline.addEventListener(
-            "click",
-            () => endCall(false),
-            { once: true }
-        );
+            setTimeout(closeCall, 1000);
+        });
 
         setTimeout(() => {
 
-            if (document.body.contains(caller)) {
-                caller.remove();
-                setMessage(
-                    "THE CALLER GAVE UP."
-                );
+            if (!document.body.contains(caller)) {
+                return;
             }
+
+            phone.innerHTML = `
+                <div class="phone-status">
+                    NO RESPONSE
+                </div>
+
+                <div class="phone-icon">
+                    ☎
+                </div>
+
+                <div class="phone-title">
+                    CALLER LEFT
+                </div>
+            `;
+
+            setMessage("THE CALLER GAVE UP.");
+
+            setTimeout(closeCall, 1200);
 
         }, 9000);
     }
 },
 
+    
 juice_box: {
     name: "JUICE BOX",
 
