@@ -79,6 +79,24 @@ const game = {
 
     dinoEvents: 0,
 
+    taxesPaid: 0,
+    taxesEvaded: 0,
+
+    snailsSeen: 0,
+
+    callsAnswered: 0,
+    
+    bonesFound: 0,
+
+    coinsFound: 0,
+
+    rightSock: 0,
+    leftSock: 0,
+
+    languagesSeen: [],
+
+    weatherForecast: null,
+
     uniqueEvents: [],
 
     eventCounts: {},
