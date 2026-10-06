@@ -547,7 +547,7 @@ const AdvancementData = [
        category: "Completion",
        condition: () =>
            game.languagesSeen.length >= 8
-   }
+   },
 
     {
         id: "everything",
